@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
         Intent ints = new Intent(this,RegistroActivity.class);
         startActivity(ints);
     }
+    public  void iniciarSesion(View v)
+    {
+        Intent ints = new Intent(this,IniciarSesionActivity.class);
+        startActivity(ints);
+    }
 }
