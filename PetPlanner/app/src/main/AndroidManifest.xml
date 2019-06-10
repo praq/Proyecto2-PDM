@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IniciarSesionActivity"></activity>
+        <activity android:name=".RegistroMascotaActivity"></activity>
+        <activity android:name=".MenuRegistroActivity" />
+        <activity android:name=".PerfilActivity" />
+        <activity android:name=".IniciarSesionActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
