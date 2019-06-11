@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo2"
+
     tools:context=".PerfilActivity">
 
     <ScrollView
@@ -30,14 +31,47 @@
             android:textSize="25dp" />
     </TableRow>
 
-        <ImageView
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
 
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="5"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/perrito"
+                android:layout_below="@+id/buttonImage"
+                />
 
+        </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/buttonImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:text="FOTO"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20dp" />
+            </LinearLayout>
+        </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
