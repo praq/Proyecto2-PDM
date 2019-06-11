@@ -44,6 +44,12 @@ public class DBHelper {
                         "colorperro VARCHAR(10),\n" +
                         "pesoperro FLOAT\n" +
                         ");");
+                db.execSQL("CREATE TABLE raza(\n" +
+                        "nombreraza VARCHAR(15) NOT NULL PRIMARY KEY,\n" +
+                        "descripcionraza VARCHAR(30)\n" +
+                        ");");
+                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','admin')");
+                db.execSQL("insert into perro values('Pelusa','pug',4,'blanco',22)");
 
             }catch(SQLException e){
                 e.printStackTrace();
@@ -72,7 +78,7 @@ public class DBHelper {
         DBHelper.close();
     }
 
-    public String llenarBD()
+    /*public String llenarBD()
     {
         abrir();
         db.execSQL("DELETE FROM usuario;");
@@ -83,30 +89,24 @@ public class DBHelper {
         db.execSQL("insert into perro values('Pelusa','pug',4,'blanco',22)");
 
         return "Bienvenido";
-    }
+    }*/
 
+    //Para inicio de sesion
     public int consultarUsuario(String user, String clave) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         int estado = 0;
         String usua = "", pass = "";
         Cursor fila;
-        //String[] columna = new String[]{"usuario", "contrasena"};
-        //String[] parametro = new String[]{user, clave};
         UsuarioAdmin = user;
         Log.e("myTag", "usuario ----- "+user);
-        fila=db.rawQuery("SELECT nombreusuario,contrasena FROM usuario WHERE nombreusuario='"+user+"' and contrasena='"+pass+"'",null);
+        Log.e("myTag", "pass ----- "+clave);
+        fila=db.rawQuery("SELECT nombreusuario,contrasena FROM usuario WHERE nombreusuario='"+user+"' and contrasena='"+clave+"'",null);
         if (fila.moveToFirst()) {
-            usua = fila.getString(0);
-            pass = fila.getString(1);
-            if (user.equals(usua) && clave.equals(pass)) {
                 estado =1;
                 Log.e("myTag", "estado1 ----- ");
-                return estado;
-            }else{
+        }else{
                 estado =2;
                 Log.e("myTag", "estado2 ----- ");
-                return estado;
-            }
         }
         return estado;
     }

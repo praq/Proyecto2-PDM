@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RegistroMascotaActivity"></activity>
-        <activity android:name=".MenuRegistroActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".IniciarSesionActivity" />
         <activity android:name=".RegistroActivity" />

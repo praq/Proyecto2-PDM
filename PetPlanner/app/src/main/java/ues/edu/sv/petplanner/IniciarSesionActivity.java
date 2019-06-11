@@ -22,9 +22,9 @@ public class IniciarSesionActivity extends AppCompatActivity {
         contrasena = (EditText) findViewById(R.id.contraseña);
         helper = new DBHelper(this);
         helper.abrir();
-        String mensaje = helper.llenarBD();
+        //String mensaje = helper.llenarBD();
         helper.cerrar();
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     public void iniciarSesion(View v) {

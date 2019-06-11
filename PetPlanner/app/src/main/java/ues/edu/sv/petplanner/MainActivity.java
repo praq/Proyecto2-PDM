@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public  void registro(View v)
     {
-        Intent ints = new Intent(this,MenuRegistroActivity.class);
+        Intent ints = new Intent(this,RegistroActivity.class);
         startActivity(ints);
     }
     public  void iniciarSesion(View v)
