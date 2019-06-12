@@ -17,6 +17,8 @@ public class DBHelper {
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
     private static final String DROP_TABLE1 ="DROP TABLE IF EXISTS usuario; ";
+    private static final String DROP_TABLE2 ="DROP TABLE IF EXISTS perro; ";
+    private static final String DROP_TABLE3 ="DROP TABLE IF EXISTS raza; ";
     public static String UsuarioAdmin;
 
     public DBHelper(Context ctx) {
@@ -54,12 +56,14 @@ public class DBHelper {
 
                 db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
-                db.execSQL("insert into perro values('Pelusa','Poodle',4,'blanco',22)");
+                db.execSQL("insert into perro values('Pelusa','Chihuahua',4,'blanco',22)");
+                db.execSQL("insert into perro values('Luigi','Poodle',4,'blanco',22)");
 
                 db.execSQL("insert into raza values('Poodle',' Hoy en día se les encuentra frecuentemente en las exposiciones caninas de belleza.')");
                 db.execSQL("insert into raza values('Chihuahua','Originario de México. Es una de las razas de perros más antiguas del continente americano')");
                 db.execSQL("insert into raza values('Bulldog','Es una raza canina originaria del Reino Unido')");
                 db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
+                db.execSQL("insert into raza values('Criollo','Mezcla de razas')");
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -73,6 +77,8 @@ public class DBHelper {
             try {
                 //Message.message(context,"OnUpgrade");
                 db.execSQL(DROP_TABLE1);
+                db.execSQL(DROP_TABLE2);
+                db.execSQL(DROP_TABLE3);
                 onCreate(db);
             }catch (Exception e) {
                 //Message.message(context,""+e);
@@ -87,7 +93,7 @@ public class DBHelper {
         DBHelper.close();
     }
 
-    //Para obtener las razas
+    //Para obtener las razas en el spinner
     public ArrayList<Raza> obtenerListaRazas() {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Raza raza = null;
@@ -101,6 +107,21 @@ public class DBHelper {
             razaLista.add(raza);
         }
         return razaLista;
+    }
+
+    //Para obtener nombre de perros en el spinner
+    public ArrayList<Perro> obtenerListaPerros() {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Perro perro = null;
+        ArrayList<Perro> perroLista = new ArrayList<Perro>();
+        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+
+        while (cursor.moveToNext()) {
+            perro = new Perro();
+            perro.setNombrePerro(cursor.getString(0));
+            perroLista.add(perro);
+        }
+        return perroLista;
     }
 
     //Para inicio de sesion
