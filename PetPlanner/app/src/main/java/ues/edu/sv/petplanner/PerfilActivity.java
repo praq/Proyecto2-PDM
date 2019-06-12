@@ -18,4 +18,10 @@ public class PerfilActivity extends AppCompatActivity {
         Intent ints = new Intent(this,RegistroMascotaActivity.class);
         startActivity(ints);
     }
+
+    public  void rutina(View v)
+    {
+        Intent ints = new Intent(this,RutinaActivity.class);
+        startActivity(ints);
+    }
 }

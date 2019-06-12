@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PetPlanner</string>
+    <string name="fecha">Fecha: </string>
+    <string name="iniciar">Iniciar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="parar">Parar</string>
+    <string name="guardar">Guardar Rutina</string>
 </resources>
