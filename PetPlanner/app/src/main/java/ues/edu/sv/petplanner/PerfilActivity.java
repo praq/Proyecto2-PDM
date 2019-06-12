@@ -25,14 +25,10 @@ public class PerfilActivity extends AppCompatActivity {
     private String APP_DIRECTORY = "PicturesPetP/";  //Direccion de la app donde se guardara la imagen
     private String MEDIA_DIRECTORY = APP_DIRECTORY + "media";
     private String TEMPORAL_PICTURE_NAME = "temporal.jpg";  //nombre temporal
-
     private final int PHOTO_CODE = 100;     //para usar metodo OnActivityResult
     private final int SELECT_PICTURE = 200;
-
     private ImageView imageView;
     private Button button;
-    //final int FOTOGRAFIA = 654;
-    //Uri file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +36,6 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
         imageView = (ImageView) findViewById(R.id.imagen);
         button = (Button) findViewById(R.id.buttonImage);
-        /*button.setOnClickListener(onClick);
-        if (savedInstanceState != null) {
-            if (savedInstanceState.getString("Foto") != null) {
-                imageView.setImageURI(Uri.parse(savedInstanceState.getString("Foto")));
-                file = Uri.parse(savedInstanceState.getString("Foto"));
-            }
-        }*/
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,37 +64,6 @@ public class PerfilActivity extends AppCompatActivity {
         });
 
     }
-    //-------------------------------------------------
-    /*public void onSaveInstanceState(Bundle bundle){
-        if (file!=null){
-            bundle.putString("Foto", file.toString());
-        }
-        super.onSaveInstanceState(bundle);
-    }
-    View.OnClickListener onClick=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO Auto-generated method stub
-            Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File photo =new
-                    File(Environment.getExternalStorageDirectory(),String.valueOf(Calendar.getInstance().getTimeInMillis())+".jpg");
-            file=Uri.fromFile(photo);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-            startActivityForResult(intent,FOTOGRAFIA);
-        }
-    };
-    @Override
-    public void onActivityResult(int RequestCode, int ResultCode, Intent intent) {
-        if (RequestCode==FOTOGRAFIA){
-            if(ResultCode == RESULT_OK){
-                imageView.setImageURI(file);
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"fotografia No tomada",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
 //----------------------------------------------------------------------------------------
     private void openCamera() {
         File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
@@ -152,7 +110,6 @@ public class PerfilActivity extends AppCompatActivity {
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
         bitmap = BitmapFactory.decodeFile(dir);
-
         imageView.setImageBitmap(bitmap);
     }
 }
