@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class DBHelper {
 
     private final Context context;
@@ -46,11 +48,17 @@ public class DBHelper {
                         ");");
                 db.execSQL("CREATE TABLE raza(\n" +
                         "nombreraza VARCHAR(15) NOT NULL PRIMARY KEY,\n" +
-                        "descripcionraza VARCHAR(30)\n" +
+                        "descripcionraza VARCHAR(50)\n" +
                         ");");
-                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','admin')");
-                db.execSQL("insert into perro values('Pelusa','pug',4,'blanco',22)");
 
+                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','admin')");
+
+                db.execSQL("insert into perro values('Pelusa','Poodle',4,'blanco',22)");
+
+                db.execSQL("insert into raza values('Poodle',' Hoy en día se les encuentra frecuentemente en las exposiciones caninas de belleza.')");
+                db.execSQL("insert into raza values('Chihuahua','Originario de México. Es una de las razas de perros más antiguas del continente americano')");
+                db.execSQL("insert into raza values('Bulldog','Es una raza canina originaria del Reino Unido')");
+                db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -78,24 +86,26 @@ public class DBHelper {
         DBHelper.close();
     }
 
-    /*public String llenarBD()
-    {
-        abrir();
-        db.execSQL("DELETE FROM usuario;");
-        db.execSQL("DELETE FROM perro;");
+    //Para obtener las razas
+    public ArrayList<Raza> obtenerListaRazas() {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Raza raza = null;
+        ArrayList<Raza> razaLista = new ArrayList<Raza>();
+        Cursor cursor = db.rawQuery("SELECT * FROM raza;", null);
 
-        //nombreusuario, apellidousuario, edadusuario, sexousuario, contrasena
-        db.execSQL("insert into usuario values('Admin','Admin',20,'F','admin')");
-        db.execSQL("insert into perro values('Pelusa','pug',4,'blanco',22)");
-
-        return "Bienvenido";
-    }*/
+        while (cursor.moveToNext()) {
+            raza = new Raza();
+            raza.setNombreRaza(cursor.getString(0));
+            //raza.setDescripcionRaza(cursor.getString(1));
+            razaLista.add(raza);
+        }
+        return razaLista;
+    }
 
     //Para inicio de sesion
     public int consultarUsuario(String user, String clave) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         int estado = 0;
-        String usua = "", pass = "";
         Cursor fila;
         UsuarioAdmin = user;
         Log.e("myTag", "usuario ----- "+user);
@@ -135,13 +145,14 @@ public class DBHelper {
         return regInsertados;
     }
 
-    public String RegistroMascota(String nombrePerro, int edadPerro,
+    public String RegistroMascota(String nombrePerro, String raza, int edadPerro,
                                   String colorPerro, Float pesoPerro ) {
         String regInsertados="Registrado";
         long contador=0;
 
         ContentValues c = new ContentValues();
         c.put("nombreperro", nombrePerro);
+        c.put("raza",raza);
         c.put("edadperro", edadPerro);
         c.put("colorperro", colorPerro);
         c.put("pesoperro", pesoPerro);
