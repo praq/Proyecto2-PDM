@@ -37,6 +37,7 @@ public class DBHelper {
                         "apellidousuario VARCHAR(15),\n" +
                         "edadusuario INTEGER,\n" +
                         "sexousuario VARCHAR(1),\n" +
+                        "correo VARCHAR(40),\n" +
                         "contrasena VARCHAR(8)\n" +
                         ");");
                 db.execSQL("CREATE TABLE perro(\n" +
@@ -51,7 +52,7 @@ public class DBHelper {
                         "descripcionraza VARCHAR(50)\n" +
                         ");");
 
-                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','admin')");
+                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
                 db.execSQL("insert into perro values('Pelusa','Poodle',4,'blanco',22)");
 
@@ -122,7 +123,7 @@ public class DBHelper {
     }
 
     public String RegistroUsuario(String nombreUsu, String apellidoUsu, int edadUsu,
-                                String sexoUsu, String contrasena) {
+                                String sexoUsu, String correo, String contrasena) {
         String regInsertados="Registrado";
         long contador=0;
 
@@ -131,6 +132,7 @@ public class DBHelper {
         c.put("apellidousuario", apellidoUsu);
         c.put("edadusuario", edadUsu);
         c.put("sexousuario", sexoUsu);
+        c.put("correo",correo);
         c.put("contrasena", contrasena);
 
         contador=db.insert("usuario", null, c);
