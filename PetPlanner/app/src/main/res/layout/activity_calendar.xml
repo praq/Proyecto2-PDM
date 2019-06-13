@@ -23,13 +23,12 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/txtActividades"
         android:layout_centerInParent="true"
         android:layout_marginTop="6dp"
         android:background="#00F5EEEE"
         android:maxDate="12/31/2030"
-        android:minDate="1/1/2019"
-        android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body1"></CalendarView>
+        android:minDate="1/1/2019"></CalendarView>
 </RelativeLayout>
