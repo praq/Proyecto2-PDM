@@ -19,6 +19,9 @@ public class DBHelper {
     private static final String DROP_TABLE1 ="DROP TABLE IF EXISTS usuario; ";
     private static final String DROP_TABLE2 ="DROP TABLE IF EXISTS perro; ";
     private static final String DROP_TABLE3 ="DROP TABLE IF EXISTS raza; ";
+    private static final String DROP_TABLE4 ="DROP TABLE IF EXISTS registro";
+    private static final String DROP_TABLE5 ="DROP TABLE IF EXISTS rutina; ";
+
     public static String UsuarioAdmin;
 
     public DBHelper(Context ctx) {
@@ -53,6 +56,20 @@ public class DBHelper {
                         "nombreraza VARCHAR(15) NOT NULL PRIMARY KEY,\n" +
                         "descripcionraza VARCHAR(50)\n" +
                         ");");
+                db.execSQL("CREATE TABLE registro(\n" +
+                        "codigoregistro INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "nombreusuario VARCHAR(15) NOT NULL,\n" +
+                        "nombreperro VARCHAR(15) NOT NULL, " +
+                        "FOREIGN KEY(nombreusuario) REFERENCES usuario(nombreusuario), " +
+                        "FOREIGN KEY(nombreperro) REFERENCES perro(nombreperro)" +
+                        ");");
+                db.execSQL("CREATE TABLE rutina(\n" +
+                        "codigorutina VARCHAR(5) NOT NULL PRIMARY KEY,\n" +
+                        "codigoregistro INTEGER NOT NULL,\n" +
+                        "fecharutina VARCHAR(10) NOT NULL,\n" +
+                        "duracionrutina VARCHAR(5) NOT NULL,\n" +
+                        "FOREIGN KEY(codigoregistro) REFERENCES registro(codigoregistro)" +
+                        ");");
 
                 db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
@@ -64,6 +81,12 @@ public class DBHelper {
                 db.execSQL("insert into raza values('Bulldog','Es una raza canina originaria del Reino Unido')");
                 db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
                 db.execSQL("insert into raza values('Criollo','Mezcla de razas')");
+
+                db.execSQL("insert into registro values(1, 'Paola','Pelusa')");
+                db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
+
+
+
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -79,6 +102,8 @@ public class DBHelper {
                 db.execSQL(DROP_TABLE1);
                 db.execSQL(DROP_TABLE2);
                 db.execSQL(DROP_TABLE3);
+                db.execSQL(DROP_TABLE4);
+                db.execSQL(DROP_TABLE5);
                 onCreate(db);
             }catch (Exception e) {
                 //Message.message(context,""+e);
@@ -211,6 +236,49 @@ public class DBHelper {
             regInsertados=regInsertados+contador;
         }
         return regInsertados;
+    }
+
+    public String insertarRegistro(int codigoRegistro, String nombreUsuario, String nombrePerro) {
+        String regInsertados="Registrado ";
+        long contador=0;
+        ContentValues c = new ContentValues();
+        c.put("codigoregistro",codigoRegistro);
+        c.put("nombreusuario", nombreUsuario);
+        c.put("nombreperro", nombrePerro);
+        contador=db.insert("registro", null, c);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+    public String RegistroRutina(Rutina rutina) {
+        String regInsertados="Registro ";
+        long contador=0;
+        ContentValues c = new ContentValues();
+        c.put("codigorutina", rutina.getCodigoRutina());
+        c.put("codigoregistro", rutina.getCodigoRegistro());
+        c.put("fecharutina", rutina.getFechaRutina());
+        c.put("duracionrutina", rutina.getDuracionRutina());
+        contador=db.insert("rutina", null, c);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+    public int cantidadRutina(){
+        Cursor c = db.rawQuery("select * from rutina",null);
+        int cantidad = c.getCount();
+        return cantidad;
     }
 
 }

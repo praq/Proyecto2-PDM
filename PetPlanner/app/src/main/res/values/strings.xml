@@ -5,5 +5,6 @@
     <string name="reiniciar">Reiniciar</string>
     <string name="parar">Parar</string>
     <string name="guardar">Guardar Rutina</string>
+    <string name="enviar">Enviar</string>
     <string name="facebook_app_id">647232585753014</string> <string name="fb_login_protocol_scheme">fb647232585753014</string>
 </resources>

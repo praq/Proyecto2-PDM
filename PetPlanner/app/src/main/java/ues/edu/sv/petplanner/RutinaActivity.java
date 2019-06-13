@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,11 +22,14 @@ public class RutinaActivity extends AppCompatActivity {
     Boolean correr = false;
     long detenerse;
     EditText editFecha;
+    DBHelper helper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutina);
+        helper = new DBHelper(this);
         btnIniciar = findViewById(R.id.btnIniciar);
         btnParar = findViewById(R.id.btnParar);
         btnReiniciar = findViewById(R.id.btnReiniciar);
@@ -81,5 +85,21 @@ public class RutinaActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public void insertarRutina(View v){
+        String regInsertados;
+        Rutina rutina = new Rutina();
+        helper.abrir();
+        rutina.setCodigoRutina("RUT"+(helper.cantidadRutina()+1)); //Hacer consulta
+        helper.cerrar();
+        rutina.setCodigoRegistro(1); //Hacer consulta
+        rutina.setFechaRutina(editFecha.getText().toString());
+        rutina.setDuracionRutina(cronometro.getText().toString());
+        helper.abrir();
+        regInsertados = helper.RegistroRutina(rutina);
+        helper.cerrar();
+        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+
     }
 }
