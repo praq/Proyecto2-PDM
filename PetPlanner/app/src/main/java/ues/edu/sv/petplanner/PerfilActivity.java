@@ -149,6 +149,21 @@ public class PerfilActivity extends AppCompatActivity {
         startActivity(ints);
     }
 
+    public  void medicamentos(View v) {
+        Intent ints = new Intent(this, MedicamentoActivity.class);
+        startActivity(ints);
+    }
+
+    public  void vacunas(View v) {
+        Intent ints = new Intent(this, VacunaActivity.class);
+        startActivity(ints);
+    }
+
+    public  void calendario(View v) {
+        Intent ints = new Intent(this, CalendarActivity.class);
+        startActivity(ints);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -1,13 +1,141 @@
 package ues.edu.sv.petplanner;
 
+import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MedicamentoActivity extends AppCompatActivity {
+
+    EditText nombreMedi;
+    Spinner spinnerEnfermedad;
+    EditText descripcionM;
+    EditText dosis;
+    EditText fecha;
+    ListView listMedicamentos;
+    Button btnFecha;
+    ScrollView scroll;
+    Enfermedad enfermedad;
+    DBHelper helper;
+
+    Calendar calendar;
+    DatePickerDialog dataPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicamento);
+        helper = new DBHelper(this);
+        nombreMedi = (EditText) findViewById(R.id.editNombre);
+        spinnerEnfermedad = (Spinner) findViewById(R.id.spinnerEnfermedad);
+        descripcionM =(EditText)findViewById(R.id.editDescriMedi);
+        dosis=(EditText) findViewById(R.id.editDosis);
+        fecha =(EditText)findViewById(R.id.editFecha);
+        listMedicamentos=(ListView)findViewById(R.id.lstMedicamentos);
+        scroll=(ScrollView)findViewById(R.id.scroll);
+        btnFecha= (Button)findViewById(R.id.btnFecha);
+
+
+        btnFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                dataPicker = new DatePickerDialog(MedicamentoActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
+                        fecha.setText(mDay+"/"+(mMonth+1)+"/"+mYear);
+                    }
+                },day, month, year);
+
+                dataPicker.show();
+            }
+        });
+
+        Bundle bundle = getIntent().getExtras();
+        int dia,mes,anio;
+        dia= bundle.getInt("dia");
+        mes= bundle.getInt("mes");
+        anio= bundle.getInt("anio");
+
+        fecha.setText(dia+"/"+mes+"/"+anio);
+
+        //CARGANDO DATOS A LA LISTA MEDICMENTOS
+        helper.consultarListaMedicamentos();
+        ArrayAdapter<CharSequence> adapterLista=new ArrayAdapter(this,android.R.layout.simple_list_item_1, helper.listaMedicamento);
+        listMedicamentos.setAdapter(adapterLista);
+
+        //CARGANDO DATOS EN EL SPINNER
+        helper.consultarListaEnfermedades();
+        ArrayAdapter<CharSequence> adapterSpinner=new ArrayAdapter(this,android.R.layout.simple_spinner_item, helper.listaEnfermedad);
+        spinnerEnfermedad.setAdapter(adapterSpinner);
+        spinnerEnfermedad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                enfermedad= new Enfermedad();
+                enfermedad=helper.enfermedadLista.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //HABILITANDO SCROLL A LA LISTA
+        scroll.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                findViewById(R.id.lstMedicamentos).getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+        listMedicamentos.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+    }
+
+
+    public void registroMedicamento(View v) {
+        String nombre=nombreMedi.getText().toString();
+        String enfe= enfermedad.getNombreEnfermedad();
+        String descriM=descripcionM.getText().toString();
+        float dosi=  Float.parseFloat(dosis.getText().toString());
+        String fechas= fecha.getText().toString();
+
+        Medicamento medicamento = new Medicamento();
+        medicamento.setNombreMedicamento(nombre);
+        medicamento.setNombreEnfermedad(enfe);
+        medicamento.setDescripcionMedicamento(descriM);
+        medicamento.setDosis(dosi);
+        medicamento.setFecha(fechas);
+
+        String regInsertados;
+        helper.abrir();
+        regInsertados=helper.InsertarMedicamento(medicamento);
+        helper.cerrar();
+        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
     }
 }
+
