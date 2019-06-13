@@ -124,6 +124,28 @@ public class DBHelper {
         return perroLista;
     }
 
+    //Consultar perro
+    public Perro consultarMascota(String nombrePerro) {
+        Perro perro = new Perro();
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        int estado = 0;
+        Cursor fila;
+        fila=db.rawQuery("select * from perro where nombreperro='"+nombrePerro+"'",null);
+        if (fila.moveToFirst()) {
+            estado =1;
+            Log.e("myTag", "estado1 ----- ");
+            perro.setNombrePerro(fila.getString(0));
+            perro.setRaza(fila.getString(1));
+            perro.setEdadPerro(fila.getString(2));
+            perro.setColorPerro(fila.getString(3));
+            perro.setPesoPerro(fila.getFloat(4));
+        }else{
+            estado =2;
+            Log.e("myTag", "estado2 ----- ");
+        }
+        return perro;
+    }
+
     //Para inicio de sesion
     public int consultarUsuario(String user, String clave) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
