@@ -1,5 +1,6 @@
 package ues.edu.sv.petplanner;
 
+import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -100,6 +101,10 @@ public class RutinaActivity extends AppCompatActivity {
         regInsertados = helper.RegistroRutina(rutina);
         helper.cerrar();
         Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+    }
 
+    public  void enviarCorreo(View v) {
+        Intent ints = new Intent(this, EnviarCorreoActivity.class);
+        startActivity(ints);
     }
 }
