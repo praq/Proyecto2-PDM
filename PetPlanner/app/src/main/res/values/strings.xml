@@ -4,5 +4,6 @@
     <string name="iniciar">Iniciar</string>
     <string name="reiniciar">Reiniciar</string>
     <string name="parar">Parar</string>
-    <string name="guardar">Guardar Rutina</string>
+    <string name="guardar">Guardar</string>
+    <string name="enviar">Enviar</string>
 </resources>
