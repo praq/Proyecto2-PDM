@@ -1,6 +1,7 @@
 package ues.edu.sv.petplanner;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -42,10 +44,15 @@ public class RutinaActivity extends AppCompatActivity {
     Boolean correr = false;
     long detenerse;
     EditText editFecha;
+    //para btnFB
     private EditText usuario;
     private LoginButton loginButton;
     private CircleImageView circleImageView;
     private CallbackManager callbackManager;
+    //para audio
+    MediaPlayer Media;
+    Button play;
+    Button stop;
     DBHelper helper;
 
 
@@ -59,6 +66,13 @@ public class RutinaActivity extends AppCompatActivity {
         btnReiniciar = findViewById(R.id.btnReiniciar);
         cronometro = findViewById(R.id.cronometro);
         editFecha = findViewById(R.id.editFecha);
+
+        play=(Button) findViewById(R.id.play);
+        stop=(Button) findViewById(R.id.stop);
+        play.setOnClickListener(onClick);
+        stop.setOnClickListener(onClick);
+        Media= MediaPlayer.create(getApplicationContext(), R.raw.music);
+
         loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
         usuario = findViewById(R.id.nombreUsuario);
@@ -106,6 +120,37 @@ public class RutinaActivity extends AppCompatActivity {
 
         editFecha.setText(getDate());
     }
+    //CODIGO DE BOTONES DE AUDIO
+    View.OnClickListener onClick=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        // TODO Auto-generated method stub
+            if (v.getId()==R.id.play){
+                if (Media.isPlaying()){
+                    Media.pause();
+                    play.setText("Play");
+                }
+                else{
+                    Media.start();
+                    play.setText("Pause");
+                }
+            }
+            else{
+                Media.stop();
+                play.setText("Play");
+                try{
+                    Media.prepare();
+                }
+                catch(IllegalStateException e){
+                    e.printStackTrace();
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
 
     //CODIGO BOTON DE FB
 
@@ -158,6 +203,8 @@ public class RutinaActivity extends AppCompatActivity {
         request.setParameters(parameters);
         request.executeAsync();
     }
+
+    //CODIGO DEL CRONOMETRO
 
     public void iniciarCronometro(){
         if(!correr){
