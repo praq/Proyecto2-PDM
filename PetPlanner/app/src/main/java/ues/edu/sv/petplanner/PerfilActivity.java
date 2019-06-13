@@ -12,13 +12,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
-import java.util.Calendar;
+import java.util.ArrayList;
 
 public class PerfilActivity extends AppCompatActivity {
 
@@ -29,6 +32,10 @@ public class PerfilActivity extends AppCompatActivity {
     private final int SELECT_PICTURE = 200;
     private ImageView imageView;
     private Button button;
+    Spinner spinnerMascota;
+    ArrayList<Perro> perros;
+    DBHelper helper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,22 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
         imageView = (ImageView) findViewById(R.id.imagen);
         button = (Button) findViewById(R.id.buttonImage);
+        spinnerMascota = (Spinner) findViewById(R.id.mascota);
 
+        //LLENAR SPINNER DE MASCOTA
+        /*perros = helper.obtenerListaPerros();
+        ArrayList<String> nombrePerro = new ArrayList<String>();
+        for (int i = 0; i < perros.size(); i++)
+        {
+            Log.e("myTag", "1 ----- ");
+            nombrePerro.add(perros.get(i).getNombrePerro());
+            Log.e("myTag", "2 ----- ");
+
+        }
+        ArrayAdapter<CharSequence> adapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_item,nombrePerro);
+        spinnerMascota.setAdapter(adapter1);*/
+
+        //CODIGO PARA USAR CAMARA
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

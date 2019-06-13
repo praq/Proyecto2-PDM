@@ -11,6 +11,7 @@ public class RegistroActivity extends AppCompatActivity {
     EditText apellidoUsu;
     EditText edadUsu;
     EditText sexoUsu;
+    EditText correoUsu;
     EditText contrasena;
 
     @Override
@@ -21,6 +22,7 @@ public class RegistroActivity extends AppCompatActivity {
         apellidoUsu = (EditText) findViewById(R.id.apellido);
         edadUsu = (EditText) findViewById(R.id.edad);
         sexoUsu = (EditText) findViewById(R.id.sexo);
+        correoUsu = (EditText) findViewById(R.id.correo);
         contrasena =(EditText)findViewById(R.id.contraseña);
     }
 
@@ -30,11 +32,12 @@ public class RegistroActivity extends AppCompatActivity {
         String apellidoUsua=apellidoUsu.getText().toString();
         String edadUsua=edadUsu.getText().toString();
         String sexoUsua=sexoUsu.getText().toString();
+        String correoUsua=correoUsu.getText().toString();
         String contra=contrasena.getText().toString();
         String regInsertados;
         helper.abrir();
-        regInsertados=helper.RegistroUsuario( nombreUsua, apellidoUsua, Integer.valueOf(edadUsua), sexoUsua,
-                contra);
+        regInsertados=helper.RegistroUsuario( nombreUsua, apellidoUsua,
+                Integer.valueOf(edadUsua),sexoUsua,correoUsua,contra);
         helper.cerrar();
         Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
     }

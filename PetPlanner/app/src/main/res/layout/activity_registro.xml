@@ -67,6 +67,26 @@
             android:gravity="center"/>
     </TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CORREO"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/correo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:gravity="center"/>
+            </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">

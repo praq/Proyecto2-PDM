@@ -17,8 +17,11 @@ public class DBHelper {
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
     private static final String DROP_TABLE1 ="DROP TABLE IF EXISTS usuario; ";
-    private static final String DROP_TABLE2 ="DROP TABLE IF EXISTS registro; ";
-    private static final String DROP_TABLE3 ="DROP TABLE IF EXISTS rutina; ";
+    private static final String DROP_TABLE2 ="DROP TABLE IF EXISTS perro; ";
+    private static final String DROP_TABLE3 ="DROP TABLE IF EXISTS raza; ";
+    private static final String DROP_TABLE4 ="DROP TABLE IF EXISTS registro";
+    private static final String DROP_TABLE5 ="DROP TABLE IF EXISTS rutina; ";
+
     public static String UsuarioAdmin;
 
     public DBHelper(Context ctx) {
@@ -39,6 +42,7 @@ public class DBHelper {
                         "apellidousuario VARCHAR(15),\n" +
                         "edadusuario INTEGER,\n" +
                         "sexousuario VARCHAR(1),\n" +
+                        "correo VARCHAR(40),\n" +
                         "contrasena VARCHAR(8)\n" +
                         ");");
                 db.execSQL("CREATE TABLE perro(\n" +
@@ -67,17 +71,22 @@ public class DBHelper {
                         "FOREIGN KEY(codigoregistro) REFERENCES registro(codigoregistro)" +
                         ");");
 
-                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','admin')");
+                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
-                db.execSQL("insert into perro values('Pelusa','Poodle',4,'blanco',22)");
+                db.execSQL("insert into perro values('Pelusa','Chihuahua',4,'blanco',22)");
+                db.execSQL("insert into perro values('Luigi','Poodle',4,'blanco',22)");
 
                 db.execSQL("insert into raza values('Poodle',' Hoy en día se les encuentra frecuentemente en las exposiciones caninas de belleza.')");
                 db.execSQL("insert into raza values('Chihuahua','Originario de México. Es una de las razas de perros más antiguas del continente americano')");
                 db.execSQL("insert into raza values('Bulldog','Es una raza canina originaria del Reino Unido')");
                 db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
+                db.execSQL("insert into raza values('Criollo','Mezcla de razas')");
 
                 db.execSQL("insert into registro values(1, 'Paola','Pelusa')");
                 db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
+
+
+
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -93,6 +102,8 @@ public class DBHelper {
                 db.execSQL(DROP_TABLE1);
                 db.execSQL(DROP_TABLE2);
                 db.execSQL(DROP_TABLE3);
+                db.execSQL(DROP_TABLE4);
+                db.execSQL(DROP_TABLE5);
                 onCreate(db);
             }catch (Exception e) {
                 //Message.message(context,""+e);
@@ -107,7 +118,7 @@ public class DBHelper {
         DBHelper.close();
     }
 
-    //Para obtener las razas
+    //Para obtener las razas en el spinner
     public ArrayList<Raza> obtenerListaRazas() {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Raza raza = null;
@@ -121,6 +132,21 @@ public class DBHelper {
             razaLista.add(raza);
         }
         return razaLista;
+    }
+
+    //Para obtener nombre de perros en el spinner
+    public ArrayList<Perro> obtenerListaPerros() {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Perro perro = null;
+        ArrayList<Perro> perroLista = new ArrayList<Perro>();
+        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+
+        while (cursor.moveToNext()) {
+            perro = new Perro();
+            perro.setNombrePerro(cursor.getString(0));
+            perroLista.add(perro);
+        }
+        return perroLista;
     }
 
     //Para inicio de sesion
@@ -143,7 +169,7 @@ public class DBHelper {
     }
 
     public String RegistroUsuario(String nombreUsu, String apellidoUsu, int edadUsu,
-                                String sexoUsu, String contrasena) {
+                                String sexoUsu, String correo, String contrasena) {
         String regInsertados="Registrado";
         long contador=0;
 
@@ -152,6 +178,7 @@ public class DBHelper {
         c.put("apellidousuario", apellidoUsu);
         c.put("edadusuario", edadUsu);
         c.put("sexousuario", sexoUsu);
+        c.put("correo",correo);
         c.put("contrasena", contrasena);
 
         contador=db.insert("usuario", null, c);
