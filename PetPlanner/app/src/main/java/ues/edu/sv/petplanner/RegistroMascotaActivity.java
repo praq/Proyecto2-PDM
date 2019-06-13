@@ -112,7 +112,7 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         String colorPerr=colorPerro.getText().toString();
         String pesoPerr=pesoPerro.getText().toString();
 
-        String nombreRaza = String.valueOf(spinnerRaza.getSelectedItemId());
+        String nombreRaza = String.valueOf(spinnerRaza.getSelectedItem());
         Raza raza = new Raza();
         raza.setNombreRaza(nombreRaza);
 

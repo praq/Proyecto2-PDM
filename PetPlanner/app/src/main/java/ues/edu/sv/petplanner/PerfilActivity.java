@@ -14,8 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,6 +33,11 @@ public class PerfilActivity extends AppCompatActivity {
     private final int PHOTO_CODE = 100;     //para usar metodo OnActivityResult
     private final int SELECT_PICTURE = 200;
     private ImageView imageView;
+    private EditText nombrePerrolbl;
+    private EditText razaPerrolbl;
+    private EditText edadPerrolbl;
+    private EditText colorPerrolbl;
+    private EditText pesoPerrolbl;
     private Button button;
     Spinner spinnerMascota;
     ArrayList<Perro> perros;
@@ -41,13 +48,19 @@ public class PerfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+        helper = new DBHelper(this );
         imageView = (ImageView) findViewById(R.id.imagen);
         button = (Button) findViewById(R.id.buttonImage);
         spinnerMascota = (Spinner) findViewById(R.id.mascota);
+        nombrePerrolbl = (EditText) findViewById(R.id.nombrePerro);
+        razaPerrolbl = (EditText)findViewById(R.id.raza);
+        edadPerrolbl = (EditText) findViewById(R.id.edadPerro);
+        colorPerrolbl = (EditText) findViewById(R.id.color);
+        pesoPerrolbl = (EditText) findViewById(R.id.peso);
 
         //LLENAR SPINNER DE MASCOTA
-        /*perros = helper.obtenerListaPerros();
-        ArrayList<String> nombrePerro = new ArrayList<String>();
+        perros = helper.obtenerListaPerros();
+        final ArrayList<String> nombrePerro = new ArrayList<String>();
         for (int i = 0; i < perros.size(); i++)
         {
             Log.e("myTag", "1 ----- ");
@@ -56,7 +69,31 @@ public class PerfilActivity extends AppCompatActivity {
 
         }
         ArrayAdapter<CharSequence> adapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_item,nombrePerro);
-        spinnerMascota.setAdapter(adapter1);*/
+        spinnerMascota.setAdapter(adapter1);
+
+        spinnerMascota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                String mascota=spinnerMascota.getSelectedItem().toString();
+                Log.e("Selected item : ",mascota);
+                Perro perro = helper.consultarMascota(mascota);
+                Log.e("myTag","perro "+perro.getEdadPerro());
+                nombrePerrolbl.setText(perro.getNombrePerro());
+                razaPerrolbl.setText(perro.getRaza());
+                edadPerrolbl.setText(perro.getEdadPerro());
+                colorPerrolbl.setText(perro.getColorPerro());
+                pesoPerrolbl.setText(String.valueOf(perro.getPesoPerro()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         //CODIGO PARA USAR CAMARA
         button.setOnClickListener(new View.OnClickListener() {
