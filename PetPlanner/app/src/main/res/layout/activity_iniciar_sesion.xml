@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo2"
     tools:context=".IniciarSesionActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,13 +31,16 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_marginTop="30dp">
-
+    <RelativeLayout
+        android:gravity="center">
         <ImageView
             android:id="@+id/imagen"
             android:layout_width="203dp"
             android:layout_height="137dp"
             android:src="@drawable/huella"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            />
+    </RelativeLayout>
     </TableRow>
 
     <TableRow
@@ -80,8 +89,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
 
         <Button
             android:layout_width="241dp"
@@ -92,7 +102,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"/>
     </LinearLayout>
-
-
+</LinearLayout>
+    </ScrollView>
 
 </TableLayout>
