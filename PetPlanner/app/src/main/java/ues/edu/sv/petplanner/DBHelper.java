@@ -21,6 +21,14 @@ public class DBHelper {
     private static final String DROP_TABLE3 ="DROP TABLE IF EXISTS raza; ";
     private static final String DROP_TABLE4 ="DROP TABLE IF EXISTS registro";
     private static final String DROP_TABLE5 ="DROP TABLE IF EXISTS rutina; ";
+    private static final String DROP_TABLE6 ="DROP TABLE IF EXISTS medicamento; ";
+    private static final String DROP_TABLE7 ="DROP TABLE IF EXISTS vacuna; ";
+    private static final String DROP_TABLE8 ="DROP TABLE IF EXISTS enfermedad; ";
+
+    public ArrayList<Medicamento> medicamentoLista;
+    public ArrayList<String> listaMedicamento;
+    public ArrayList<Enfermedad> enfermedadLista;
+    public ArrayList<String> listaEnfermedad;
 
     public static String UsuarioAdmin;
 
@@ -71,6 +79,22 @@ public class DBHelper {
                         "FOREIGN KEY(codigoregistro) REFERENCES registro(codigoregistro)" +
                         ");");
 
+                db.execSQL("CREATE TABLE medicamento(\n" +
+                        "nombreMedicamento VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
+                        "codRegistro INTEGER,\n" +
+                        "nombreEnfermedad VARCHAR(20),\n" +
+                        "descripcionMedicamento VARCHAR(30),\n" +
+                        "dosis REAL,\n" +
+                        "fecha VARCHAR(15));");
+
+                db.execSQL("CREATE TABLE enfermedad(\n" +
+                        "nombreEnfermedad VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
+                        "descripcionEnfermedad VARCHAR(30));");
+
+                db.execSQL("CREATE TABLE vacuna(\n" +
+                        "nombreVacuna VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
+                        "codRegistro INTEGER);");
+
                 db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
                 db.execSQL("insert into perro values('Pelusa','Chihuahua',4,'blanco',22)");
@@ -84,6 +108,11 @@ public class DBHelper {
 
                 db.execSQL("insert into registro values(1, 'Paola','Pelusa')");
                 db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
+
+                db.execSQL("insert into medicamento values('Acetaminofen',null,'Rabia','Es un medicamneto para...',3,'12-12-19')");
+                db.execSQL("insert into medicamento values('Dolofin',null,'Viruela','Es un medicamneto para...',2,'10-11-19')");
+                db.execSQL("insert into enfermedad values('Rabia','Es gravee')");
+                db.execSQL("insert into enfermedad values('Viruela','No es grave')");
 
 
 
@@ -104,6 +133,9 @@ public class DBHelper {
                 db.execSQL(DROP_TABLE3);
                 db.execSQL(DROP_TABLE4);
                 db.execSQL(DROP_TABLE5);
+                db.execSQL(DROP_TABLE6);
+                db.execSQL(DROP_TABLE7);
+                db.execSQL(DROP_TABLE8);
                 onCreate(db);
             }catch (Exception e) {
                 //Message.message(context,""+e);
@@ -279,6 +311,98 @@ public class DBHelper {
         Cursor c = db.rawQuery("select * from rutina",null);
         int cantidad = c.getCount();
         return cantidad;
+    }
+
+
+    //Manuel
+
+    public String InsertarMedicamento(Medicamento medicamento) {
+        String regInsertados="Registrado";
+        long contador=0;
+
+        ContentValues c = new ContentValues();
+        c.put("nombreMedicamento", medicamento.getNombreMedicamento());
+        c.put("nombreEnfermedad", medicamento.getNombreEnfermedad());
+        c.put("descripcionMedicamento", medicamento.getDescripcionMedicamento());
+        c.put("dosis", medicamento.getDosis());
+        c.put("fecha", medicamento.getFecha());
+
+        contador=db.insert("medicamento", null, c);
+
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+    public void consultarListaMedicamentos () {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Medicamento medicamento = null;
+        medicamentoLista = new ArrayList<Medicamento>();
+        Cursor cursor = db.rawQuery("SELECT * FROM medicamento;", null);
+        while (cursor.moveToNext()) {
+            medicamento = new Medicamento();
+            medicamento.setNombreMedicamento(cursor.getString(0));
+            medicamento.setCodRegistro(cursor.getInt(1));
+            medicamento.setNombreEnfermedad(cursor.getString(2));
+            medicamento.setDescripcionMedicamento(cursor.getString(3));
+            medicamento.setDosis(cursor.getFloat(4));
+            medicamento.setFecha(cursor.getString(5));
+            medicamentoLista.add(medicamento);
+        }
+        obtenerListaMedicamento();
+    }
+
+    public void obtenerListaMedicamento() {
+        listaMedicamento = new ArrayList<String>();
+        for (int i = 0; i < medicamentoLista.size(); i++){
+            listaMedicamento.add("NOMBRE :"+medicamentoLista.get(i).getNombreMedicamento()+ " \n DESCRIPCION : "+ medicamentoLista.get(i).getDescripcionMedicamento()+"\n\n");
+        }
+    }
+
+
+    public void consultarListaEnfermedades(){
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Enfermedad enfermedad= null;
+        enfermedadLista= new ArrayList<Enfermedad>();
+        Cursor cursor = db.rawQuery("SELECT * FROM enfermedad;", null);
+        while (cursor.moveToNext()) {
+            enfermedad = new Enfermedad();
+            enfermedad.setNombreEnfermedad(cursor.getString(0));
+            enfermedad.setDescripcionEnfermedad(cursor.getString(1));
+            enfermedadLista.add(enfermedad);
+        }
+        obtenerListaEnfermedad();
+    }
+    public void obtenerListaEnfermedad() {
+        listaEnfermedad = new ArrayList<String>();
+        for (int i = 0; i < enfermedadLista.size(); i++){
+            listaEnfermedad.add(enfermedadLista.get(i).getNombreEnfermedad());
+        }
+    }
+
+
+    public void consultarListaEventoMedicamento(String f) {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Medicamento medicamento = null;
+        String [] id = {f};
+        medicamentoLista = new ArrayList<Medicamento>();
+        Cursor cursor = db.rawQuery("SELECT * FROM medicamento WHERE fecha = ?;", id);
+        while (cursor.moveToNext()) {
+            medicamento = new Medicamento();
+            medicamento.setNombreMedicamento(cursor.getString(0));
+            medicamento.setCodRegistro(cursor.getInt(1));
+            medicamento.setNombreEnfermedad(cursor.getString(2));
+            medicamento.setDescripcionMedicamento(cursor.getString(3));
+            medicamento.setDosis(cursor.getFloat(4));
+            medicamento.setFecha(cursor.getString(5));
+            medicamentoLista.add(medicamento);
+        }
+        obtenerListaMedicamento();
     }
 
 }
