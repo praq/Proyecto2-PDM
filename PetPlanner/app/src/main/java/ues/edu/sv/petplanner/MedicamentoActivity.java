@@ -30,6 +30,10 @@ public class MedicamentoActivity extends AppCompatActivity {
     Enfermedad enfermedad;
     DBHelper helper;
 
+    int dia =0;
+    int mes =0;
+    int anio =0;
+
     Calendar calendar;
     DatePickerDialog dataPicker;
 
@@ -68,7 +72,7 @@ public class MedicamentoActivity extends AppCompatActivity {
         });
 
         Bundle bundle = getIntent().getExtras();
-        int dia,mes,anio;
+
         dia= bundle.getInt("dia");
         mes= bundle.getInt("mes");
         anio= bundle.getInt("anio");

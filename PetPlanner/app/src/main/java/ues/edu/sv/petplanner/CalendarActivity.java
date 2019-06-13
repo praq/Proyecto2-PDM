@@ -15,7 +15,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calendar);
         DBhelper = new DBHelper(this);
 
         calendar=(CalendarView)findViewById(R.id.calendarView);
@@ -28,7 +28,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView.
     @Override
     public void onSelectedDayChange(CalendarView view, final int year, final int month, final int day) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        CharSequence []items = new CharSequence[3];
+        CharSequence []items = new CharSequence[4];
         items[0] = "Agregar Medicamento";
         items[1]= "Agregar Vacuna";
         items[2]= "Ver Eventos";

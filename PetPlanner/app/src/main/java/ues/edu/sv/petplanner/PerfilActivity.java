@@ -151,6 +151,11 @@ public class PerfilActivity extends AppCompatActivity {
 
     public  void medicamentos(View v) {
         Intent ints = new Intent(this, MedicamentoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("dia",0);
+        bundle.putInt("mes",0);
+        bundle.putInt("anio",0);
+        ints.putExtras(bundle);
         startActivity(ints);
     }
 
