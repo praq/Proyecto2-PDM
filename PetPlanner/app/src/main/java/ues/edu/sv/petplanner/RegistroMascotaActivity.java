@@ -17,8 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class RegistroMascotaActivity extends AppCompatActivity {
     EditText pesoPerro;
     Spinner spinnerRaza;
     ArrayList<Raza> razas;
+
+    VideoView video;
+    MediaController mediacontrol;
 
     Registro registro;
     String usuario;
@@ -73,10 +78,16 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         spinnerRaza.setAdapter(adapter1);
         Log.e("myTag", "pase por aqui ----- ");
 
-        /*int nombreR = spinnerRaza.getSelectedItemPosition();
-        Log.e("myTag", "id ----- "+nombreR);
-        Raza raza= razas.get(nombreR);
-        raza.setNombreRaza(raza.getNombreRaza());*/
+        //CODIGO PARA VIDEO
+        video=(VideoView) findViewById(R.id.video);
+        File f=new File(Environment.getExternalStorageDirectory(),"videoplayback.mp4");
+        if (f.exists()){
+            Uri uri=Uri.fromFile(f);
+            video.setVideoURI(uri);
+            mediacontrol=new MediaController(this);
+            video.setMediaController(mediacontrol);
+            mediacontrol.show();
+        }
 
 
 

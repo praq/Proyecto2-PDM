@@ -197,6 +197,35 @@
                         android:textColor="@color/colorAccent"/>
                 </LinearLayout>
             </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIDEO: Perritos conocen gatos por primera vez"
+                    android:textSize="15dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <VideoView
+                    android:id="@+id/video"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="5"
+                    android:layout_marginBottom="30dp"/>
+            </TableRow>
+
         </LinearLayout>
     </ScrollView>
 </TableLayout>
