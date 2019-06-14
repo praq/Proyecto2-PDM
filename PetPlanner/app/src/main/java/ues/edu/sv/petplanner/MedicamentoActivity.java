@@ -122,24 +122,29 @@ public class MedicamentoActivity extends AppCompatActivity {
 
 
     public void registroMedicamento(View v) {
-        String nombre=nombreMedi.getText().toString();
-        String enfe= enfermedad.getNombreEnfermedad();
-        String descriM=descripcionM.getText().toString();
-        float dosi=  Float.parseFloat(dosis.getText().toString());
-        String fechas= fecha.getText().toString();
+        if (nombreMedi.getText().toString().equals("")||descripcionM.getText().toString().equals("")||
+        dosis.getText().toString().equals("")||fecha.getText().toString().equals(""))
+        {Toast.makeText(this,"Complete todos los campos", Toast.LENGTH_SHORT).show();}
+        else {
+            String nombre = nombreMedi.getText().toString();
+            String enfe = enfermedad.getNombreEnfermedad();
+            String descriM = descripcionM.getText().toString();
+            float dosi = Float.parseFloat(dosis.getText().toString());
+            String fechas = fecha.getText().toString();
 
-        Medicamento medicamento = new Medicamento();
-        medicamento.setNombreMedicamento(nombre);
-        medicamento.setNombreEnfermedad(enfe);
-        medicamento.setDescripcionMedicamento(descriM);
-        medicamento.setDosis(dosi);
-        medicamento.setFecha(fechas);
+            Medicamento medicamento = new Medicamento();
+            medicamento.setNombreMedicamento(nombre);
+            medicamento.setNombreEnfermedad(enfe);
+            medicamento.setDescripcionMedicamento(descriM);
+            medicamento.setDosis(dosi);
+            medicamento.setFecha(fechas);
 
-        String regInsertados;
-        helper.abrir();
-        regInsertados=helper.InsertarMedicamento(medicamento);
-        helper.cerrar();
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+            String regInsertados;
+            helper.abrir();
+            regInsertados = helper.InsertarMedicamento(medicamento);
+            helper.cerrar();
+            Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -152,6 +152,8 @@
                         android:text="Fecha"
                         android:textColor="#FF181616" />
 
+
+
                 </TableRow>
 
                 <RelativeLayout>
@@ -160,7 +162,7 @@
                         android:id="@+id/btnFecha"
                         android:layout_centerInParent="true"
                         android:layout_width="100dp"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:text="Elegir fecha"
                         android:textSize="10dp"/>
 

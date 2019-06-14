@@ -61,6 +61,7 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         //LLENAR SPINNER DE RAZA
         razas = helper.obtenerListaRazas();
         ArrayList<String> nombreRaza = new ArrayList<String>();
+        nombreRaza.add("seleccione");
         for (int i = 0; i < razas.size(); i++)
         {
             Log.e("myTag", "1 ----- ");
@@ -113,27 +114,33 @@ public class RegistroMascotaActivity extends AppCompatActivity {
     //BOTON REGISTRAR MASCOTA
     public void registro(View v) {
         DBHelper helper = new DBHelper(this);
-        String nombrePerr=nombrePerro.getText().toString();
-        String edadPerr=edadPerro.getText().toString();
-        String colorPerr=colorPerro.getText().toString();
-        String pesoPerr=pesoPerro.getText().toString();
+
+        if(nombrePerro.getText().toString().equals("")||spinnerRaza.getSelectedItem().equals("seleccione")||
+                edadPerro.getText().toString().equals("")||colorPerro.getText().toString().equals("")||pesoPerro.getText().toString().equals(""))
+        {Toast.makeText(this,"Complete todos los campos", Toast.LENGTH_SHORT).show();}
+        else {
+            String nombrePerr = nombrePerro.getText().toString();
+            String edadPerr = edadPerro.getText().toString();
+            String colorPerr = colorPerro.getText().toString();
+            String pesoPerr = pesoPerro.getText().toString();
 
 
-        //CREANDO NUEVO REGISTRO DEL USUARIO
-        registro = new Registro();
-        registro.setNombreUsuario(usuario);
-        registro.setNombrePerro(nombrePerr);
+            //CREANDO NUEVO REGISTRO DEL USUARIO
+            registro = new Registro();
+            registro.setNombreUsuario(usuario);
+            registro.setNombrePerro(nombrePerr);
 
-        String nombreRaza = String.valueOf(spinnerRaza.getSelectedItem());
-        Raza raza = new Raza();
-        raza.setNombreRaza(nombreRaza);
+            String nombreRaza = String.valueOf(spinnerRaza.getSelectedItem());
+            Raza raza = new Raza();
+            raza.setNombreRaza(nombreRaza);
 
-        String regInsertados1,regInsertados2;
-        helper.abrir();
-        regInsertados1=helper.RegistroMascota( nombrePerr,nombreRaza,Integer.valueOf(edadPerr),colorPerr,Float.valueOf(pesoPerr));
-        regInsertados2=helper.insertarRegistro(registro);
-        helper.cerrar();
-        Toast.makeText(this, regInsertados1 +" & "+ regInsertados2, Toast.LENGTH_SHORT).show();
+            String regInsertados1, regInsertados2;
+            helper.abrir();
+            regInsertados1 = helper.RegistroMascota(nombrePerr, nombreRaza, Integer.valueOf(edadPerr), colorPerr, Float.valueOf(pesoPerr));
+            regInsertados2 = helper.insertarRegistro(registro);
+            helper.cerrar();
+            Toast.makeText(this, regInsertados1 + " & " + regInsertados2, Toast.LENGTH_SHORT).show();
+        }
     }
 
     //PARA ABRIR LA CAMARA DEL DISPOSITIVO

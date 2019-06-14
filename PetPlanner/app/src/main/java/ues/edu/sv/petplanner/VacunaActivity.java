@@ -42,7 +42,7 @@ public class VacunaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vacuna);
         helper = new DBHelper(this);
         nombreVacuna = (EditText) findViewById(R.id.editNombre);
-        spinnerPerro = (Spinner) findViewById(R.id.spinnerPerro);
+        spinnerPerro = (Spinner) findViewById(R.id.spinnerPerr);
         fecha =(EditText)findViewById(R.id.editFecha);
         listVacunas=(ListView)findViewById(R.id.lstVacunas);
         scroll=(ScrollView)findViewById(R.id.scroll);
@@ -120,25 +120,29 @@ public class VacunaActivity extends AppCompatActivity {
 
 
     public void registroVacuna(View v) {
-        String nombre=nombreVacuna.getText().toString();
-        String perroo= perro.getNombrePerro();
-        String fechas= fecha.getText().toString();
+        if (nombreVacuna.getText().toString().equals("")||fecha.getText().toString().equals(""))
+        {Toast.makeText(this,"Complete todos los campos", Toast.LENGTH_SHORT).show();}
+        else {
+            String nombre = nombreVacuna.getText().toString();
+            String perroo = perro.getNombrePerro();
+            String fechas = fecha.getText().toString();
 
 
-        helper.abrir();
-        registro = helper.consultarRegistro(usuario,perroo);
-        helper.cerrar();
+            helper.abrir();
+            registro = helper.consultarRegistro(usuario, perroo);
+            helper.cerrar();
 
 
-        Vacuna vacuna = new Vacuna();
-        vacuna.setNombreVacuna(nombre);
-        vacuna.setCodRegistro(registro.getCodRegistro());
-        vacuna.setFecha(fechas);
+            Vacuna vacuna = new Vacuna();
+            vacuna.setNombreVacuna(nombre);
+            vacuna.setCodRegistro(registro.getCodRegistro());
+            vacuna.setFecha(fechas);
 
-        String regInsertados;
-        helper.abrir();
-        regInsertados=helper.InsertarVacuna(vacuna);
-        helper.cerrar();
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+            String regInsertados;
+            helper.abrir();
+            regInsertados = helper.InsertarVacuna(vacuna);
+            helper.cerrar();
+            Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        }
     }
 }

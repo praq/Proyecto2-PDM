@@ -28,18 +28,23 @@ public class RegistroActivity extends AppCompatActivity {
 
     public void registro(View v) {
         DBHelper helper = new DBHelper(this);
-        String nombreUsua=nombreUsu.getText().toString();
-        String apellidoUsua=apellidoUsu.getText().toString();
-        String edadUsua=edadUsu.getText().toString();
-        String sexoUsua=sexoUsu.getText().toString();
-        String correoUsua=correoUsu.getText().toString();
-        String contra=contrasena.getText().toString();
-        String regInsertados;
-        helper.abrir();
-        regInsertados=helper.RegistroUsuario( nombreUsua, apellidoUsua,
-                Integer.valueOf(edadUsua),sexoUsua,correoUsua,contra);
-        helper.cerrar();
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        if(nombreUsu.getText().toString().equals("")||apellidoUsu.getText().toString().equals("")||edadUsu.getText().toString().equals("")||
+        sexoUsu.getText().toString().equals("")||correoUsu.getText().toString().equals("")||contrasena.getText().toString().equals(""))
+        {Toast.makeText(this,"Complete todos los campos", Toast.LENGTH_SHORT).show();}
+        else {
+            String nombreUsua = nombreUsu.getText().toString();
+            String apellidoUsua = apellidoUsu.getText().toString();
+            String edadUsua = edadUsu.getText().toString();
+            String sexoUsua = sexoUsu.getText().toString();
+            String correoUsua = correoUsu.getText().toString();
+            String contra = contrasena.getText().toString();
+            String regInsertados;
+            helper.abrir();
+            regInsertados = helper.RegistroUsuario(nombreUsua, apellidoUsua,
+                    Integer.valueOf(edadUsua), sexoUsua, correoUsua, contra);
+            helper.cerrar();
+            Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        }
     }
 
 
