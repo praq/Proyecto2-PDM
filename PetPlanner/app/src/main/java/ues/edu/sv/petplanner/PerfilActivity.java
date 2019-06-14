@@ -41,6 +41,7 @@ public class PerfilActivity extends AppCompatActivity {
     private Button button;
     Spinner spinnerMascota;
     ArrayList<Perro> perros;
+    String usuario;
     DBHelper helper;
 
 
@@ -57,6 +58,9 @@ public class PerfilActivity extends AppCompatActivity {
         edadPerrolbl = (EditText) findViewById(R.id.edadPerro);
         colorPerrolbl = (EditText) findViewById(R.id.color);
         pesoPerrolbl = (EditText) findViewById(R.id.peso);
+
+        Bundle bundle = getIntent().getExtras();
+        usuario = bundle.getString("nombreusuario");
 
         //LLENAR SPINNER DE MASCOTA
         perros = helper.obtenerListaPerros();
@@ -141,6 +145,9 @@ public class PerfilActivity extends AppCompatActivity {
     public  void registro(View v)
     {
         Intent ints = new Intent(this,RegistroMascotaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("nombreusuario",usuario);
+        ints.putExtras(bundle);
         startActivity(ints);
     }
 
@@ -156,12 +163,19 @@ public class PerfilActivity extends AppCompatActivity {
         bundle.putInt("dia",0);
         bundle.putInt("mes",0);
         bundle.putInt("anio",0);
+        bundle.putString("nombreusuario",usuario);
         ints.putExtras(bundle);
         startActivity(ints);
     }
 
     public  void vacunas(View v) {
         Intent ints = new Intent(this, VacunaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("dia",0);
+        bundle.putInt("mes",0);
+        bundle.putInt("anio",0);
+        bundle.putString("nombreusuario",usuario);
+        ints.putExtras(bundle);
         startActivity(ints);
     }
 

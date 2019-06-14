@@ -26,9 +26,12 @@ public class DBHelper {
     private static final String DROP_TABLE8 ="DROP TABLE IF EXISTS enfermedad; ";
 
     public ArrayList<Medicamento> medicamentoLista;
-    public ArrayList<String> listaMedicamento;
+    public ArrayList<Vacuna> vacunasLista;
     public ArrayList<Enfermedad> enfermedadLista;
-    public ArrayList<String> listaEnfermedad;
+    public ArrayList<Perro> perroLista;
+    public ArrayList<String> listaMedicamento,listaVacunas,listaEnfermedad,listaPerro;
+
+    private static final String[] camposRegistro = new String[]{"codigoregistro","nombreusuario","nombreperro"};
 
     public static String UsuarioAdmin;
 
@@ -93,7 +96,8 @@ public class DBHelper {
 
                 db.execSQL("CREATE TABLE vacuna(\n" +
                         "nombreVacuna VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
-                        "codRegistro INTEGER);");
+                        "codRegistro INTEGER,\n" +
+                        "fecha VARCHAR(15));");
 
                 db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
 
@@ -106,11 +110,11 @@ public class DBHelper {
                 db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
                 db.execSQL("insert into raza values('Criollo','Mezcla de razas')");
 
-                db.execSQL("insert into registro values(1, 'Paola','Pelusa')");
+               // db.execSQL("insert into registro values(1,'Paola','Pelusa')");
                 db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
 
-                db.execSQL("insert into medicamento values('Acetaminofen',null,'Rabia','Es un medicamneto para...',3,'12-12-19')");
-                db.execSQL("insert into medicamento values('Dolofin',null,'Viruela','Es un medicamneto para...',2,'10-11-19')");
+                db.execSQL("insert into medicamento values('Acetaminofen',null,'Rabia','Es un medicamneto para...',3,'12/12/19')");
+                db.execSQL("insert into medicamento values('Dolofin',null,'Viruela','Es un medicamneto para...',2,'10/11/19')");
                 db.execSQL("insert into enfermedad values('Rabia','Es gravee')");
                 db.execSQL("insert into enfermedad values('Viruela','No es grave')");
 
@@ -288,6 +292,38 @@ public class DBHelper {
         return regInsertados;
     }
 
+    public String insertarRegistro(Registro registro) {
+        String regInsertados="Registrado ";
+        long contador=0;
+        ContentValues c = new ContentValues();
+        c.put("nombreusuario", registro.getNombreUsuario());
+        c.put("nombreperro", registro.getNombrePerro());
+        contador=db.insert("registro", null, c);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+
+
+    public Registro consultarRegistro(String nombreUsuario,String nombrePerro){
+        String [] id = {nombreUsuario,nombrePerro};
+        Cursor cursor= db.query("registro",camposRegistro,"nombreusuario = ? AND nombreperro = ?",id,null,null,null);
+        if(cursor.moveToFirst()){
+            Registro registro = new Registro();
+            registro.setCodRegistro(cursor.getInt(0));
+            registro.setNombreUsuario(cursor.getString(1));
+            registro.setNombrePerro(cursor.getString(2));
+            return registro;
+        }else
+            return null;
+    }
+
     public String RegistroRutina(Rutina rutina) {
         String regInsertados="Registro ";
         long contador=0;
@@ -339,6 +375,27 @@ public class DBHelper {
         return regInsertados;
     }
 
+    public String InsertarVacuna(Vacuna vacuna) {
+        String regInsertados="Registrado";
+        long contador=0;
+
+        ContentValues c = new ContentValues();
+        c.put("nombreVacuna", vacuna.getNombreVacuna());
+        c.put("codRegistro", vacuna.getCodRegistro());
+        c.put("fecha",vacuna.getFecha());
+
+        contador=db.insert("vacuna", null, c);
+
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
     public void consultarListaMedicamentos () {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Medicamento medicamento = null;
@@ -360,9 +417,32 @@ public class DBHelper {
     public void obtenerListaMedicamento() {
         listaMedicamento = new ArrayList<String>();
         for (int i = 0; i < medicamentoLista.size(); i++){
-            listaMedicamento.add("NOMBRE :"+medicamentoLista.get(i).getNombreMedicamento()+ " \n DESCRIPCION : "+ medicamentoLista.get(i).getDescripcionMedicamento()+"\n\n");
+            listaMedicamento.add("NOMBRE : "+medicamentoLista.get(i).getNombreMedicamento()+ "\nDESCRIPCION : "+medicamentoLista.get(i).getDescripcionMedicamento()+"\n\n");
         }
     }
+
+    public void consultarListaVacunas () {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Vacuna vacuna = null;
+        vacunasLista = new ArrayList<Vacuna>();
+        Cursor cursor = db.rawQuery("SELECT * FROM vacuna;", null);
+        while (cursor.moveToNext()) {
+            vacuna = new Vacuna();
+            vacuna.setNombreVacuna(cursor.getString(0));
+            vacuna.setCodRegistro(cursor.getInt(1));
+            vacuna.setFecha(cursor.getString(2));
+            vacunasLista.add(vacuna);
+        }
+        obtenerListaVacunas();
+    }
+
+    public void obtenerListaVacunas() {
+        listaVacunas = new ArrayList<String>();
+        for (int i = 0; i < vacunasLista.size(); i++){
+            listaVacunas.add("NOMBRE : "+vacunasLista.get(i).getNombreVacuna()+"\n");
+        }
+    }
+
 
 
     public void consultarListaEnfermedades(){
@@ -385,7 +465,6 @@ public class DBHelper {
         }
     }
 
-
     public void consultarListaEventoMedicamento(String f) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Medicamento medicamento = null;
@@ -405,4 +484,42 @@ public class DBHelper {
         obtenerListaMedicamento();
     }
 
+    public void consultarListaEventoVacuna(String f) {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Vacuna vacuna = null;
+        String [] id = {f};
+        vacunasLista = new ArrayList<Vacuna>();
+        Cursor cursor = db.rawQuery("SELECT * FROM vacuna WHERE fecha = ?;", id);
+        while (cursor.moveToNext()) {
+            vacuna = new Vacuna();
+            vacuna.setNombreVacuna(cursor.getString(0));
+            vacuna.setCodRegistro(cursor.getInt(1));
+            vacuna.setFecha(cursor.getString(2));
+            vacunasLista.add(vacuna);
+        }
+        obtenerListaVacunas();
+    }
+
+    public void consultarListaPerro(){
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Perro perro= null;
+        perroLista= new ArrayList<Perro>();
+        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+        while (cursor.moveToNext()) {
+            perro = new Perro();
+            perro.setNombrePerro(cursor.getString(0));
+            perro.setRaza(cursor.getString(1));
+            perro.setEdadPerro(cursor.getString(2));
+            perro.setColorPerro(cursor.getString(3));
+            perro.setPesoPerro(cursor.getFloat(4));
+            perroLista.add(perro);
+        }
+        obtenerListaPerro();
+    }
+    public void obtenerListaPerro() {
+        listaPerro = new ArrayList<String>();
+        for (int i = 0; i < perroLista.size(); i++){
+            listaPerro.add(perroLista.get(i).getNombrePerro());
+        }
+    }
 }

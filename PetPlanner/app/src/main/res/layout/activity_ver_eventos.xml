@@ -11,66 +11,80 @@
     android:background="@drawable/fondo2"
     tools:context=".VerEventosActivity">
 
-    <TextView
-        android:id="@+id/txtEventos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:text="Eventos Agendados :"
-        android:textColor="#FF181616"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="0dp"/>
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="170dp"
-        android:layout_marginTop="20dp"
-        android:text=" "
-        android:textColor="#3F51B5"
-        android:textSize="18dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtMedicamentos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="50dp"
-        android:text="Medicamentos"
-        android:textColor="#FF181616"
-        android:textSize="18dp" />
+            <TextView
+                android:id="@+id/txtEventos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="Eventos Agendados :"
+                android:textColor="#FF181616"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="0dp"/>
 
-    <ListView
-        android:id="@+id/lstMedi"
-        android:layout_width="365dp"
-        android:layout_height="234dp"
-        android:layout_below="@+id/txtEventos"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="44dp"
-        android:background="#609B9797">
+            <TextView
+                android:id="@+id/txtFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="20dp"
+                android:text=" "
+                android:textColor="#3F51B5"
+                android:textSize="18dp" />
 
-    </ListView>
+            <TextView
+                android:id="@+id/txtMedicamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="50dp"
+                android:text="Medicamentos"
+                android:textColor="#FF181616"
+                android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/txtVacunas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="350dp"
-        android:text="Vacunas"
-        android:textColor="#FF181616"
-        android:textSize="18dp" />
+            <ListView
+                android:id="@+id/lstMedi"
+                android:layout_width="365dp"
+                android:layout_height="234dp"
+                android:layout_below="@+id/txtEventos"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:background="#609B9797">
 
-    <ListView
-        android:id="@+id/lstVacunas"
-        android:layout_width="wrap_content"
-        android:layout_height="252dp"
-        android:layout_below="@+id/txtEventos"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="340dp"
-        android:background="#609B9797">
+            </ListView>
 
-    </ListView>
+            <TextView
+                android:id="@+id/txtVacunas"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="70dp"
+                android:text="Vacunas"
+                android:textColor="#FF181616"
+                android:textSize="18dp" />
 
+            <ListView
+                android:id="@+id/lstVacunas"
+                android:layout_width="wrap_content"
+                android:layout_height="252dp"
+                android:layout_below="@+id/txtEventos"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:background="#609B9797">
+
+            </ListView>
+
+
+         </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
+

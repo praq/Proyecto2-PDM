@@ -1,9 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:background="@drawable/fondo2"
     tools:context=".VacunaActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtVacunas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="VACUNAS"
+                android:textColor="#3F51B5"
+                android:textSize="18dp" />
+
+            <ListView
+                android:id="@+id/lstVacunas"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:layout_below="@+id/txtVacunas"
+                android:background="#7A918D8D">
+
+            </ListView>
+
+            <TextView
+                android:id="@+id/txtRegistroVacuna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lstVacunas"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:text="REGISTRO DE VACUNA"
+                android:textColor="#3F51B5"
+                android:textSize="18dp" />
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txtRegistroVacuna"
+                android:layout_marginTop="1dp"
+                android:paddingTop="20dip"
+                android:stretchColumns="1">
+
+                <TableRow>
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="1dp"
+                        android:text="Nombre"
+                        android:textColor="#181616" />
+
+                </TableRow>
+                <TableRow>
+
+                    <EditText
+                        android:id="@+id/editNombre"
+                        android:layout_width="257dp"
+                        android:layout_marginLeft="15dp"
+                        android:inputType="text" />
+                </TableRow>
+
+
+                <TableRow>
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:text="Perro"
+                        android:textColor="#FF181616"/>
+
+                </TableRow>
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="35dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerPerro"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="100dp"
+                        android:inputType="text"
+                        android:visibility="visible"
+                        tools:visibility="visible" />
+
+                </RelativeLayout>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/txtFecha"
+                        android:layout_width="263dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Fecha"
+                        android:textColor="#FF181616" />
+
+                </TableRow>
+
+                <RelativeLayout>
+
+                    <Button
+                        android:id="@+id/btnFecha"
+                        android:layout_centerInParent="true"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:text="Elegir fecha"
+                        android:textSize="10dp"/>
+
+                </RelativeLayout>
+
+                <TableRow>
+
+                    <EditText
+                        android:id="@+id/editFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:hint="dd/mm/aa"
+                        android:inputType="text"
+                        android:maxLength="10" />
+                </TableRow>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Registrar"
+                        android:onClick="registroVacuna"
+                        android:id="@+id/insertarMedi"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/eliminarMedi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Eliminar" />
+
+                </RelativeLayout>
+
+
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

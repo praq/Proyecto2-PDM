@@ -39,6 +39,9 @@ public class RegistroMascotaActivity extends AppCompatActivity {
     EditText pesoPerro;
     Spinner spinnerRaza;
     ArrayList<Raza> razas;
+
+    Registro registro;
+    String usuario;
     DBHelper helper;
 
     @Override
@@ -51,6 +54,9 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         colorPerro = (EditText) findViewById(R.id.color);
         pesoPerro =(EditText)findViewById(R.id.peso);
         spinnerRaza = (Spinner) findViewById(R.id.raza);
+
+        Bundle bundle = getIntent().getExtras();
+        usuario = bundle.getString("nombreusuario");
 
         //LLENAR SPINNER DE RAZA
         razas = helper.obtenerListaRazas();
@@ -112,15 +118,22 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         String colorPerr=colorPerro.getText().toString();
         String pesoPerr=pesoPerro.getText().toString();
 
+
+        //CREANDO NUEVO REGISTRO DEL USUARIO
+        registro = new Registro();
+        registro.setNombreUsuario(usuario);
+        registro.setNombrePerro(nombrePerr);
+
         String nombreRaza = String.valueOf(spinnerRaza.getSelectedItem());
         Raza raza = new Raza();
         raza.setNombreRaza(nombreRaza);
 
-        String regInsertados;
+        String regInsertados1,regInsertados2;
         helper.abrir();
-        regInsertados=helper.RegistroMascota( nombrePerr,nombreRaza,Integer.valueOf(edadPerr),colorPerr,Float.valueOf(pesoPerr));
+        regInsertados1=helper.RegistroMascota( nombrePerr,nombreRaza,Integer.valueOf(edadPerr),colorPerr,Float.valueOf(pesoPerr));
+        regInsertados2=helper.insertarRegistro(registro);
         helper.cerrar();
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, regInsertados1 +" & "+ regInsertados2, Toast.LENGTH_SHORT).show();
     }
 
     //PARA ABRIR LA CAMARA DEL DISPOSITIVO
