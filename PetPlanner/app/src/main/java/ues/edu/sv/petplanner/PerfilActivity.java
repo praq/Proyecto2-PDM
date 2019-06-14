@@ -61,6 +61,7 @@ public class PerfilActivity extends AppCompatActivity {
         //LLENAR SPINNER DE MASCOTA
         perros = helper.obtenerListaPerros();
         final ArrayList<String> nombrePerro = new ArrayList<String>();
+        nombrePerro.add("seleccione");
         for (int i = 0; i < perros.size(); i++)
         {
             Log.e("myTag", "1 ----- ");
