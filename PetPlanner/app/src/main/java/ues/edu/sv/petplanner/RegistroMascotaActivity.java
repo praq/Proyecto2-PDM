@@ -18,7 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -34,6 +36,9 @@ public class RegistroMascotaActivity extends AppCompatActivity {
     private final int SELECT_PICTURE = 200;
     private ImageView imageView;
     private Button button;
+    private SeekBar seek;
+    private TextView edad;
+
 
     EditText nombrePerro;
     EditText edadPerro;
@@ -117,6 +122,28 @@ public class RegistroMascotaActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();//Con esto se muestra el cuadro de dialogo
+
+            }
+        });
+
+        seek = (SeekBar)findViewById(R.id.skbEdadPerro);
+        edad = (TextView) findViewById(R.id.txtEdad);
+
+        edad.setText("   Edad: "+seek.getProgress());
+
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                edad.setText("   Edad: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
