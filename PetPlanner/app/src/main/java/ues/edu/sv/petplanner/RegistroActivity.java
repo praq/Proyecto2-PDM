@@ -2,9 +2,15 @@ package ues.edu.sv.petplanner;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
+import static java.lang.System.load;
 
 public class RegistroActivity extends AppCompatActivity {
     EditText nombreUsu;
@@ -13,6 +19,7 @@ public class RegistroActivity extends AppCompatActivity {
     EditText sexoUsu;
     EditText correoUsu;
     EditText contrasena;
+    private ImageView imagenGif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,12 @@ public class RegistroActivity extends AppCompatActivity {
         sexoUsu = (EditText) findViewById(R.id.sexo);
         correoUsu = (EditText) findViewById(R.id.correo);
         contrasena =(EditText)findViewById(R.id.contraseña);
+
+        imagenGif = (ImageView) findViewById(R.id.profile_image);
+        String url = "https://media.giphy.com/media/LoNQv53ySBrTJFRel7/source.gif";
+        Glide   .with(RegistroActivity.this)
+                .load(url)
+                .into(imagenGif);
     }
 
     public void registro(View v) {

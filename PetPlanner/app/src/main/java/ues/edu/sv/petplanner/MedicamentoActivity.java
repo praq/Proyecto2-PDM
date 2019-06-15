@@ -10,10 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 
@@ -21,6 +24,7 @@ public class MedicamentoActivity extends AppCompatActivity {
 
     EditText nombreMedi;
     Spinner spinnerEnfermedad;
+    Spinner spinnerPerro;
     EditText descripcionM;
     EditText dosis;
     EditText fecha;
@@ -29,6 +33,12 @@ public class MedicamentoActivity extends AppCompatActivity {
     ScrollView scroll;
     Enfermedad enfermedad;
     DBHelper helper;
+
+    ImageView imagenGif;
+
+    Perro perro;
+    Registro registro;
+    String usuario;
 
     int dia =0;
     int mes =0;
@@ -44,12 +54,20 @@ public class MedicamentoActivity extends AppCompatActivity {
         helper = new DBHelper(this);
         nombreMedi = (EditText) findViewById(R.id.editNombre);
         spinnerEnfermedad = (Spinner) findViewById(R.id.spinnerEnfermedad);
+        spinnerPerro = (Spinner) findViewById(R.id.spinnerPerr);
         descripcionM =(EditText)findViewById(R.id.editDescriMedi);
         dosis=(EditText) findViewById(R.id.editDosis);
         fecha =(EditText)findViewById(R.id.editFecha);
         listMedicamentos=(ListView)findViewById(R.id.lstMedicamentos);
         scroll=(ScrollView)findViewById(R.id.scroll);
         btnFecha= (Button)findViewById(R.id.btnFecha);
+
+        //IMAGEN GIF
+        imagenGif = (ImageView) findViewById(R.id.imageView);
+        String url = "https://media.giphy.com/media/kEq8spGRFi49ulRlc8/source.gif";
+        Glide.with(MedicamentoActivity.this)
+                .load(url)
+                .into(imagenGif);
 
 
         btnFecha.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +94,7 @@ public class MedicamentoActivity extends AppCompatActivity {
         dia= bundle.getInt("dia");
         mes= bundle.getInt("mes");
         anio= bundle.getInt("anio");
+        usuario = bundle.getString("nombreusuario");
 
         fecha.setText(dia+"/"+mes+"/"+anio);
 
@@ -93,6 +112,23 @@ public class MedicamentoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 enfermedad= new Enfermedad();
                 enfermedad=helper.enfermedadLista.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //CARGANDO DATOS EN EL SPINNER
+        helper.consultarListaPerro();
+        ArrayAdapter<CharSequence> adapterSpinner1=new ArrayAdapter(this,android.R.layout.simple_spinner_item, helper.listaPerro);
+        spinnerPerro.setAdapter(adapterSpinner1);
+        spinnerPerro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                perro= new Perro();
+                perro=helper.perroLista.get(position);
             }
 
             @Override
@@ -128,12 +164,18 @@ public class MedicamentoActivity extends AppCompatActivity {
         else {
             String nombre = nombreMedi.getText().toString();
             String enfe = enfermedad.getNombreEnfermedad();
+            String perroo = perro.getNombrePerro();
             String descriM = descripcionM.getText().toString();
             float dosi = Float.parseFloat(dosis.getText().toString());
             String fechas = fecha.getText().toString();
 
+            helper.abrir();
+            registro = helper.consultarRegistro(usuario, perroo);
+            helper.cerrar();
+
             Medicamento medicamento = new Medicamento();
             medicamento.setNombreMedicamento(nombre);
+            medicamento.setCodRegistro(registro.getCodRegistro());
             medicamento.setNombreEnfermedad(enfe);
             medicamento.setDescripcionMedicamento(descriM);
             medicamento.setDosis(dosi);

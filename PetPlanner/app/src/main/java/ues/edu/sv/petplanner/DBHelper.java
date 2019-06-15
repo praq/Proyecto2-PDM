@@ -171,11 +171,11 @@ public class DBHelper {
     }
 
     //Para obtener nombre de perros en el spinner
-    public ArrayList<Perro> obtenerListaPerros() {
+    public ArrayList<Perro> obtenerListaPerros(String usuario) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Perro perro = null;
         ArrayList<Perro> perroLista = new ArrayList<Perro>();
-        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM perro inner join registro on perro.nombreperro=registro.nombreperro WHERE registro.nombreusuario = '"+usuario+"';", null);
 
         while (cursor.moveToNext()) {
             perro = new Perro();
@@ -502,9 +502,10 @@ public class DBHelper {
 
     public void consultarListaPerro(){
         SQLiteDatabase db = DBHelper.getReadableDatabase();
+        String [] id = {UsuarioAdmin};
         Perro perro= null;
         perroLista= new ArrayList<Perro>();
-        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM perro INNER JOIN registro WHERE perro.nombreperro = registro.nombreperro AND registro.nombreusuario= ?;", id);
         while (cursor.moveToNext()) {
             perro = new Perro();
             perro.setNombrePerro(cursor.getString(0));

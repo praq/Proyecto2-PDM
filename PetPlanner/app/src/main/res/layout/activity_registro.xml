@@ -26,6 +26,19 @@
             android:text="REGISTRO DE USUARIO"
             android:textSize="25dp" />
     </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="30dp">
+                <RelativeLayout
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+                </RelativeLayout>
+            </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
