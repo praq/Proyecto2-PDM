@@ -10,10 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 
@@ -30,6 +33,8 @@ public class MedicamentoActivity extends AppCompatActivity {
     ScrollView scroll;
     Enfermedad enfermedad;
     DBHelper helper;
+
+    ImageView imagenGif;
 
     Perro perro;
     Registro registro;
@@ -56,6 +61,13 @@ public class MedicamentoActivity extends AppCompatActivity {
         listMedicamentos=(ListView)findViewById(R.id.lstMedicamentos);
         scroll=(ScrollView)findViewById(R.id.scroll);
         btnFecha= (Button)findViewById(R.id.btnFecha);
+
+        //IMAGEN GIF
+        imagenGif = (ImageView) findViewById(R.id.imageView);
+        String url = "https://media.giphy.com/media/kEq8spGRFi49ulRlc8/source.gif";
+        Glide.with(MedicamentoActivity.this)
+                .load(url)
+                .into(imagenGif);
 
 
         btnFecha.setOnClickListener(new View.OnClickListener() {

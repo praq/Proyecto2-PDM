@@ -33,9 +33,9 @@ public class RegistroActivity extends AppCompatActivity {
         contrasena =(EditText)findViewById(R.id.contraseña);
 
         imagenGif = (ImageView) findViewById(R.id.profile_image);
-        //String url = "R.load.gif";
+        String url = "https://media.giphy.com/media/LoNQv53ySBrTJFRel7/source.gif";
         Glide   .with(RegistroActivity.this)
-                .load(R.raw.perrito)
+                .load(url)
                 .into(imagenGif);
     }
 

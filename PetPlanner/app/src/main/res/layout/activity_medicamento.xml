@@ -53,6 +53,16 @@
                 android:textColor="#3F51B5"
                 android:textSize="18dp" />
 
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </RelativeLayout>
+
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -95,10 +105,10 @@
 
                     <Spinner
                         android:id="@+id/spinnerEnfermedad"
-                        android:layout_width="match_parent"
+                        android:layout_width="295dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginBottom="0dp"
                         android:background="#7AADA4A3"
                         android:inputType="text"
@@ -121,9 +131,9 @@
 
                     <Spinner
                         android:id="@+id/spinnerPerr"
-                        android:layout_width="match_parent"
+                        android:layout_width="295dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginLeft="20dp"
                         android:background="#7AADA4A3"
                         android:inputType="text"
                         android:visibility="visible"

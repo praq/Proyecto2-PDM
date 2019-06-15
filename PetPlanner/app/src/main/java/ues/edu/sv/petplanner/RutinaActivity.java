@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -53,6 +54,8 @@ public class RutinaActivity extends AppCompatActivity {
     MediaPlayer Media;
     Button play;
     Button stop;
+
+    private ImageView imagenGif;
     DBHelper helper;
 
 
@@ -72,6 +75,12 @@ public class RutinaActivity extends AppCompatActivity {
         play.setOnClickListener(onClick);
         stop.setOnClickListener(onClick);
         Media= MediaPlayer.create(getApplicationContext(), R.raw.music);
+
+        imagenGif = (ImageView) findViewById(R.id.imageRutina);
+        String url = "https://media.giphy.com/media/51W7lOzH4007niylO3/source.gif";
+        Glide   .with(RutinaActivity.this)
+                .load(url)
+                .into(imagenGif);
 
         loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);

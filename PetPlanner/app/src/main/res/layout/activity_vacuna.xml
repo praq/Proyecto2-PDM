@@ -40,7 +40,6 @@
                 android:background="#7A918D8D">
 
             </ListView>
-
             <TextView
                 android:id="@+id/txtRegistroVacuna"
                 android:layout_width="wrap_content"
@@ -53,6 +52,15 @@
                 android:textColor="#3F51B5"
                 android:textSize="18dp" />
 
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+                <ImageView
+                    android:id="@+id/imagenVacuna"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </RelativeLayout>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -95,9 +103,9 @@
 
                     <Spinner
                         android:id="@+id/spinnerPerr"
-                        android:layout_width="match_parent"
+                        android:layout_width="267dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginLeft="15dp"
                         android:background="#7AADA4A3"
                         android:inputType="text"
                         android:visibility="visible"
