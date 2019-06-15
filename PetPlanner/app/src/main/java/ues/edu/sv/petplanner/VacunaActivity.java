@@ -10,10 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 
@@ -27,6 +30,7 @@ public class VacunaActivity extends AppCompatActivity {
     Perro perro;
     Registro registro;
     String usuario;
+    private ImageView imagenGif;
     DBHelper helper;
 
     int dia =0;
@@ -47,6 +51,12 @@ public class VacunaActivity extends AppCompatActivity {
         listVacunas=(ListView)findViewById(R.id.lstVacunas);
         scroll=(ScrollView)findViewById(R.id.scroll);
         btnFecha= (Button)findViewById(R.id.btnFecha);
+
+        imagenGif = (ImageView) findViewById(R.id.imagenVacuna);
+        String url = "https://media.giphy.com/media/gT2fj8ioFAv87cA5RO/source.gif";
+        Glide.with(VacunaActivity.this)
+                .load(url)
+                .into(imagenGif);
 
 
         btnFecha.setOnClickListener(new View.OnClickListener() {
