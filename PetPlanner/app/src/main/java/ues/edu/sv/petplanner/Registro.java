@@ -6,9 +6,7 @@ public class Registro {
     private String nombrePerro;
 
     public Registro() {
-
     }
-
 
     public int getCodRegistro() {
         return codRegistro;
