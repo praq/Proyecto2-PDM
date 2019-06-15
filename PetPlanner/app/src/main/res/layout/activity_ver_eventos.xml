@@ -25,18 +25,18 @@
                 android:id="@+id/txtEventos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"
                 android:text="Eventos Agendados :"
-                android:textColor="#FF181616"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="0dp"/>
+                android:textColor="#000109"
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txtFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="170dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="0dp"
                 android:text=" "
                 android:textColor="#3F51B5"
                 android:textSize="18dp" />
@@ -46,15 +46,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="110dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="Medicamentos"
-                android:textColor="#FF181616"
+                android:textColor="#3F51B5"
                 android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/lstMedi"
                 android:layout_width="365dp"
-                android:layout_height="234dp"
+                android:layout_height="181dp"
                 android:layout_below="@+id/txtEventos"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
@@ -67,15 +67,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginLeft="120dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="90dp"
                 android:text="Vacunas"
-                android:textColor="#FF181616"
+                android:textColor="#3F51B5"
                 android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/lstVacunas"
                 android:layout_width="wrap_content"
-                android:layout_height="252dp"
+                android:layout_height="180dp"
                 android:layout_below="@+id/txtEventos"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"

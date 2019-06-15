@@ -502,9 +502,10 @@ public class DBHelper {
 
     public void consultarListaPerro(){
         SQLiteDatabase db = DBHelper.getReadableDatabase();
+        String [] id = {UsuarioAdmin};
         Perro perro= null;
         perroLista= new ArrayList<Perro>();
-        Cursor cursor = db.rawQuery("SELECT * FROM perro;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM perro INNER JOIN registro WHERE perro.nombreperro = registro.nombreperro AND registro.nombreusuario= ?;", id);
         while (cursor.moveToNext()) {
             perro = new Perro();
             perro.setNombrePerro(cursor.getString(0));
