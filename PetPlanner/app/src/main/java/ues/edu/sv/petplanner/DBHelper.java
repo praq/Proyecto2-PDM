@@ -29,6 +29,7 @@ public class DBHelper {
     public ArrayList<Vacuna> vacunasLista;
     public ArrayList<Enfermedad> enfermedadLista;
     public ArrayList<Perro> perroLista;
+    public ArrayList<Usuario> usuarioLista;
     public ArrayList<String> listaMedicamento,listaVacunas,listaEnfermedad,listaPerro;
 
     private static final String[] camposRegistro = new String[]{"codigoregistro","nombreusuario","nombreperro"};
@@ -251,11 +252,9 @@ public class DBHelper {
         return regInsertados;
     }
 
-    public String RegistroMascota(String nombrePerro, String raza, int edadPerro,
-                                  String colorPerro, Float pesoPerro ) {
+    public String RegistroMascota(String nombrePerro, String raza, int edadPerro, String colorPerro, Float pesoPerro ) {
         String regInsertados="Registrado";
         long contador=0;
-
         ContentValues c = new ContentValues();
         c.put("nombreperro", nombrePerro);
         c.put("raza",raza);
@@ -263,9 +262,7 @@ public class DBHelper {
         c.put("colorperro", colorPerro);
         c.put("pesoperro", pesoPerro);
         contador=db.insert("perro", null, c);
-
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -282,8 +279,7 @@ public class DBHelper {
         c.put("nombreusuario", nombreUsuario);
         c.put("nombreperro", nombrePerro);
         contador=db.insert("registro", null, c);
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -299,8 +295,7 @@ public class DBHelper {
         c.put("nombreusuario", registro.getNombreUsuario());
         c.put("nombreperro", registro.getNombrePerro());
         contador=db.insert("registro", null, c);
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -308,8 +303,6 @@ public class DBHelper {
         }
         return regInsertados;
     }
-
-
 
     public Registro consultarRegistro(String nombreUsuario,String nombrePerro){
         String [] id = {nombreUsuario,nombrePerro};
@@ -333,8 +326,7 @@ public class DBHelper {
         c.put("fecharutina", rutina.getFechaRutina());
         c.put("duracionrutina", rutina.getDuracionRutina());
         contador=db.insert("rutina", null, c);
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -349,24 +341,18 @@ public class DBHelper {
         return cantidad;
     }
 
-
     //Manuel
-
     public String InsertarMedicamento(Medicamento medicamento) {
         String regInsertados="Registrado";
         long contador=0;
-
         ContentValues c = new ContentValues();
         c.put("nombreMedicamento", medicamento.getNombreMedicamento());
         c.put("nombreEnfermedad", medicamento.getNombreEnfermedad());
         c.put("descripcionMedicamento", medicamento.getDescripcionMedicamento());
         c.put("dosis", medicamento.getDosis());
         c.put("fecha", medicamento.getFecha());
-
         contador=db.insert("medicamento", null, c);
-
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -378,16 +364,12 @@ public class DBHelper {
     public String InsertarVacuna(Vacuna vacuna) {
         String regInsertados="Registrado";
         long contador=0;
-
         ContentValues c = new ContentValues();
         c.put("nombreVacuna", vacuna.getNombreVacuna());
         c.put("codRegistro", vacuna.getCodRegistro());
         c.put("fecha",vacuna.getFecha());
-
         contador=db.insert("vacuna", null, c);
-
-        if(contador==-1 || contador==0)
-        {
+        if(contador==-1 || contador==0) {
             regInsertados= "Error al Insertar el registro, Registro Duplicado.";
         }
         else {
@@ -442,8 +424,6 @@ public class DBHelper {
             listaVacunas.add("NOMBRE : "+vacunasLista.get(i).getNombreVacuna()+"\n");
         }
     }
-
-
 
     public void consultarListaEnfermedades(){
         SQLiteDatabase db = DBHelper.getReadableDatabase();
@@ -522,5 +502,22 @@ public class DBHelper {
         for (int i = 0; i < perroLista.size(); i++){
             listaPerro.add(perroLista.get(i).getNombrePerro());
         }
+    }
+
+    public Usuario consultarUsuarioRegistrado(String usuarioRegistrado){
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Usuario usuario= null;
+        usuarioLista= new ArrayList<Usuario>();
+        Cursor cursor = db.rawQuery("SELECT * FROM usuario WHERE nombreusuario='"+usuarioRegistrado+"';", null);
+        while (cursor.moveToNext()) {
+            usuario = new Usuario();
+            usuario.setNombreUsuario(cursor.getString(0));
+            usuario.setApellidoUsuario(cursor.getString(1));
+            usuario.setEdadUsuario(cursor.getInt(2));
+            usuario.setSexoUsuario(cursor.getString(3));
+            usuario.setCorreo(cursor.getString(4));
+            usuario.setContraseña(cursor.getString(5));
+        }
+        return usuario;
     }
 }

@@ -153,6 +153,9 @@ public class PerfilActivity extends AppCompatActivity {
 
     public  void rutina(View v) {
         Intent ints = new Intent(this, RutinaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("nombreusuario",usuario);
+        ints.putExtras(bundle);
         startActivity(ints);
     }
 

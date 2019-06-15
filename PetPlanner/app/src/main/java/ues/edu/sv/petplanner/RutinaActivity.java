@@ -2,6 +2,7 @@ package ues.edu.sv.petplanner;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -33,11 +34,19 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RutinaActivity extends AppCompatActivity {
-
     Button btnIniciar;
     Button btnParar;
     Button btnReiniciar;
@@ -55,9 +64,17 @@ public class RutinaActivity extends AppCompatActivity {
     Button play;
     Button stop;
 
+    //para correo electronico
+    Session session = null;
+    //correo de donde se enviará el mensaje
+    String correo = "elixa.mendex98@gmail.com";
+    String contraseña = "eli12345";
+    Usuario usua = null;
+    String usuarioRegistrado;
+    Bundle bundle;
+
     private ImageView imagenGif;
     DBHelper helper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +93,11 @@ public class RutinaActivity extends AppCompatActivity {
         stop.setOnClickListener(onClick);
         Media= MediaPlayer.create(getApplicationContext(), R.raw.music);
 
+
+        //Capturar el usuario que se ha registrado
+        bundle = getIntent().getExtras();
+        usuarioRegistrado = bundle.getString("nombreusuario");
+
         imagenGif = (ImageView) findViewById(R.id.imageRutina);
         String url = "https://media.giphy.com/media/51W7lOzH4007niylO3/source.gif";
         Glide   .with(RutinaActivity.this)
@@ -92,14 +114,10 @@ public class RutinaActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
             }
-
             @Override
             public void onCancel() {
-
             }
-
             @Override
             public void onError(FacebookException error) {
 
@@ -160,9 +178,7 @@ public class RutinaActivity extends AppCompatActivity {
         }
     };
 
-
     //CODIGO BOTON DE FB
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         callbackManager.onActivityResult(requestCode,resultCode,data);
@@ -180,7 +196,6 @@ public class RutinaActivity extends AppCompatActivity {
             }else {
                 loadUserProfile(currentAccessToken);
             }
-
         }
     };
 
@@ -206,7 +221,6 @@ public class RutinaActivity extends AppCompatActivity {
                 }
             }
         });
-
         Bundle parameters = new Bundle();
         parameters.putString("fields","first_name, last_name, email, id");
         request.setParameters(parameters);
@@ -214,7 +228,6 @@ public class RutinaActivity extends AppCompatActivity {
     }
 
     //CODIGO DEL CRONOMETRO
-
     public void iniciarCronometro(){
         if(!correr){
             cronometro.setBase(SystemClock.elapsedRealtime() - detenerse);
@@ -257,8 +270,39 @@ public class RutinaActivity extends AppCompatActivity {
         Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
     }
 
-    public  void enviarCorreo(View v) {
-        Intent ints = new Intent(this, EnviarCorreoActivity.class);
-        startActivity(ints);
+    public void enviarCorreo(View v) {
+        helper.abrir();
+        usua = helper.consultarUsuarioRegistrado(usuarioRegistrado);
+        helper.cerrar();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.port", "465");
+
+        try {
+            session = Session.getDefaultInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(correo, contraseña);
+                }
+            });
+            if (session != null) {
+                javax.mail.Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(correo));
+                message.setSubject("Datos de rutina");
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usua.getCorreo()));
+                message.setContent("Duracion de rutina: "+cronometro.getText().toString(), "text/html; charset=utf-8");
+                Transport.send(message);
+                Toast.makeText(RutinaActivity.this, "Mensaje enviado correctamente", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(RutinaActivity.this, "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
