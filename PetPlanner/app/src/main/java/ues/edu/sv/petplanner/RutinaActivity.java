@@ -93,7 +93,6 @@ public class RutinaActivity extends AppCompatActivity {
         stop.setOnClickListener(onClick);
         Media= MediaPlayer.create(getApplicationContext(), R.raw.music);
 
-
         //Capturar el usuario que se ha registrado
         bundle = getIntent().getExtras();
         usuarioRegistrado = bundle.getString("nombreusuario");

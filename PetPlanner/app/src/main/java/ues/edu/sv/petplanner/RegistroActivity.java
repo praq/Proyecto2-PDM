@@ -1,16 +1,14 @@
 package ues.edu.sv.petplanner;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import static java.lang.System.load;
 
 public class RegistroActivity extends AppCompatActivity {
     EditText nombreUsu;
@@ -47,20 +45,36 @@ public class RegistroActivity extends AppCompatActivity {
         else {
             String nombreUsua = nombreUsu.getText().toString();
             String apellidoUsua = apellidoUsu.getText().toString();
-            String edadUsua = edadUsu.getText().toString();
+            int edadUsua = Integer.valueOf(edadUsu.getText().toString());
             String sexoUsua = sexoUsu.getText().toString();
             String correoUsua = correoUsu.getText().toString();
             String contra = contrasena.getText().toString();
-            String regInsertados;
-            helper.abrir();
-            regInsertados = helper.RegistroUsuario(nombreUsua, apellidoUsua,
-                    Integer.valueOf(edadUsua), sexoUsua, correoUsua, contra);
-            helper.cerrar();
-            Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+            if (validarEmail(correoUsua)==false){
+                Toast.makeText(RegistroActivity.this, "Email no valido, Por favor verifique", Toast.LENGTH_SHORT).show();
+            }else {
+                String regInsertados;
+                helper.abrir();
+                regInsertados = helper.RegistroUsuario(nombreUsua, apellidoUsua,
+                        edadUsua, sexoUsua, correoUsua, contra);
+                helper.cerrar();
+                Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+                limpiarTexto();
+            }
         }
     }
-
-
-
-
+    @SuppressLint("DefaultLocale")
+    public boolean validarEmail(String editName) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(editName).matches())
+            return true;
+        else
+            return false;
+    }
+    private void limpiarTexto(){
+        nombreUsu.setText("");
+        apellidoUsu.setText("");
+        edadUsu.setText("");
+        sexoUsu.setText("");
+        correoUsu.setText("");
+        contrasena.setText("");
+    }
 }
