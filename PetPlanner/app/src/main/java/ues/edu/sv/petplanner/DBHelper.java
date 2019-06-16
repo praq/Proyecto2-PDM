@@ -100,7 +100,7 @@ public class DBHelper {
                         "codRegistro INTEGER,\n" +
                         "fecha VARCHAR(15));");
 
-                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','correo@gmail.com','admin')");
+                db.execSQL("insert into usuario values('Paola','Aguilar',24,'F','nenee.aguilar@gmail.com','pao')");
 
                 db.execSQL("insert into perro values('Pelusa','Chihuahua',4,'blanco',22)");
                 db.execSQL("insert into perro values('Luigi','Poodle',4,'blanco',22)");
