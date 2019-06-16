@@ -2,11 +2,13 @@ package ues.edu.sv.petplanner;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -21,10 +23,13 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +51,7 @@ import javax.mail.internet.MimeMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class RutinaActivity extends AppCompatActivity {
     Button btnIniciar;
     Button btnParar;
@@ -59,6 +65,9 @@ public class RutinaActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CircleImageView circleImageView;
     private CallbackManager callbackManager;
+
+    ShareDialog shareDialog;
+
     //para audio
     MediaPlayer Media;
     Button play;
@@ -93,15 +102,21 @@ public class RutinaActivity extends AppCompatActivity {
         stop.setOnClickListener(onClick);
         Media= MediaPlayer.create(getApplicationContext(), R.raw.music);
 
-        //Capturar el usuario que se ha registrado
-        bundle = getIntent().getExtras();
-        usuarioRegistrado = bundle.getString("nombreusuario");
-
         imagenGif = (ImageView) findViewById(R.id.imageRutina);
         String url = "https://media.giphy.com/media/51W7lOzH4007niylO3/source.gif";
         Glide   .with(RutinaActivity.this)
                 .load(url)
                 .into(imagenGif);
+
+        //FACEBOOK
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        shareDialog = new ShareDialog(this);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        //Capturar el usuario que se ha registrado
+        /*bundle = getIntent().getExtras();
+        usuarioRegistrado = bundle.getString("nombreusuario");
 
         loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
@@ -128,7 +143,7 @@ public class RutinaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 iniciarCronometro();
             }
-        });
+        });*/
 
         btnParar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +161,23 @@ public class RutinaActivity extends AppCompatActivity {
 
         editFecha.setText(getDate());
     }
+    //CODIGO PARA BOTON DE SHARE EN FB
+    public void publicar(View view){
+        try{
+            if (ShareDialog.canShow(ShareLinkContent.class)) {
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setContentTitle("Prueba Facebook")
+                        .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                        .build();
+                shareDialog.show(linkContent);
+            }
+        }catch (Exception e){
+            Toast.makeText(RutinaActivity.this,"algo salio mal !"+ e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
     //CODIGO DE BOTONES DE AUDIO
     View.OnClickListener onClick=new View.OnClickListener() {
         @Override
@@ -178,7 +210,7 @@ public class RutinaActivity extends AppCompatActivity {
     };
 
     //CODIGO BOTON DE FB
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         callbackManager.onActivityResult(requestCode,resultCode,data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -224,7 +256,7 @@ public class RutinaActivity extends AppCompatActivity {
         parameters.putString("fields","first_name, last_name, email, id");
         request.setParameters(parameters);
         request.executeAsync();
-    }
+    }*/
 
     //CODIGO DEL CRONOMETRO
     public void iniciarCronometro(){

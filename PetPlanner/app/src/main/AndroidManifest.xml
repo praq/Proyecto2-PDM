@@ -15,6 +15,11 @@
         android:roundIcon="@mipmap/ic_index_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider647232585753014"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
         <activity android:name=".VacunaActivity"></activity>
         <activity android:name=".VerEventosActivity" />
         <activity android:name=".MedicamentoActivity" />

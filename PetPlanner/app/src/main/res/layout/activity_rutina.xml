@@ -123,7 +123,22 @@
             tools:layout_editor_absoluteY="275dp" />
     </LinearLayout>
 
-    <TableRow
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+            <Button
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:onClick="publicar"
+                android:text="@string/compartir"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="275dp" />
+        </LinearLayout>
+
+
+    <!--<TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -162,7 +177,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp" />
-    </LinearLayout>
+    </LinearLayout>-->
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

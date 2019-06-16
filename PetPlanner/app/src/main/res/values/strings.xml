@@ -8,6 +8,7 @@
     <string name="enviar">Enviar</string>
     <string name="btnPlay">Play</string>
     <string name="btnStop">Stop</string>
+    <string name="compartir">Compartir en FB</string>
     <string name="facebook_app_id">647232585753014</string>
     <string name="fb_login_protocol_scheme">fb647232585753014</string>
 </resources>
