@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.xw.repo.BubbleSeekBar;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -36,12 +38,9 @@ public class RegistroMascotaActivity extends AppCompatActivity {
     private final int SELECT_PICTURE = 200;
     private ImageView imageView;
     private Button button;
-    private SeekBar seek;
-    private TextView edad;
-
 
     EditText nombrePerro;
-    EditText edadPerro;
+    TextView edadPerro;
     EditText colorPerro;
     EditText pesoPerro;
     Spinner spinnerRaza;
@@ -60,7 +59,7 @@ public class RegistroMascotaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registro_mascota);
         helper = new DBHelper(this );
         nombrePerro = (EditText) findViewById(R.id.nombrePerro);
-        edadPerro = (EditText) findViewById(R.id.edadPerro);
+        edadPerro = (TextView) findViewById(R.id.edadPerro);
         colorPerro = (EditText) findViewById(R.id.color);
         pesoPerro =(EditText)findViewById(R.id.peso);
         spinnerRaza = (Spinner) findViewById(R.id.raza);
@@ -126,24 +125,22 @@ public class RegistroMascotaActivity extends AppCompatActivity {
             }
         });
 
-        seek = (SeekBar)findViewById(R.id.skbEdadPerro);
-        edad = (TextView) findViewById(R.id.txtEdad);
+        BubbleSeekBar bubbleSeekBar = (BubbleSeekBar) findViewById(R.id.seekBar);
 
-        edad.setText("   Edad: "+seek.getProgress());
-
-        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        bubbleSeekBar.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                edad.setText("   Edad: "+progress);
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+                //edad.setText(String.format("Edad: %d", progress));
+                edadPerro.setText(String.valueOf(progress));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
 
             }
         });
