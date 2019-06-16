@@ -111,6 +111,9 @@ public class DBHelper {
                 db.execSQL("insert into raza values('Pug','Origen histórico en China, pero con el patrocinio de Reino Unido')");
                 db.execSQL("insert into raza values('Criollo','Mezcla de razas')");
 
+                db.execSQL("CREATE TABLE introduccion(nombre VARCHAR(20) PRIMARY KEY, valor INTEGER);");
+                db.execSQL("INSERT INTO introduccion VALUES ('inicio',0)");
+
                // db.execSQL("insert into registro values(1,'Paola','Pelusa')");
                 db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
 
@@ -519,5 +522,26 @@ public class DBHelper {
             usuario.setContraseña(cursor.getString(5));
         }
         return usuario;
+    }
+
+
+    //esto es para que la introduccion no se haga frecuentemente
+    public int consultarIntro(){
+        String [] id = {"inicio"};
+        int valor;
+        Cursor cursor= db.query("introduccion",null,"nombre=?",id,null,null,null);
+        if(cursor.moveToFirst()){
+            valor= cursor.getInt(1);
+            return valor;
+        }else
+            return 0;
+    }
+
+    public String actualizarIntroduccion(){
+        String [] id= {"inicio"};
+        ContentValues cv= new ContentValues();
+        cv.put("valor",1);
+        db.update("introduccion",cv,"nombre=?",id);
+        return "Finalizada la introduccion";
     }
 }

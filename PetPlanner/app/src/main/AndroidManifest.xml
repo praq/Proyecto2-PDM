@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Inicio Permisos requeridos -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,12 +15,15 @@
         android:roundIcon="@mipmap/ic_index_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AppIntroActivity">
+        </activity>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider647232585753014"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider647232585753014"
             android:exported="true" />
 
-        <activity android:name=".VacunaActivity"></activity>
+        <activity android:name=".VacunaActivity" />
         <activity android:name=".VerEventosActivity" />
         <activity android:name=".MedicamentoActivity" />
         <activity android:name=".CalendarActivity" />
