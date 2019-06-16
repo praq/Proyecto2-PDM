@@ -119,7 +119,8 @@
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -148,15 +149,7 @@
                     app:bsb_show_thumb_text="true"
                     app:bsb_track_color="#39796b" />
 
-                <TextView
-                    android:id="@+id/edadPerro"
-                    android:layout_width="113dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="0"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="176dp"
-                    tools:layout_editor_absoluteY="235dp" />
+
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"

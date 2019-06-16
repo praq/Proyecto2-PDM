@@ -112,7 +112,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATOS GENEALES"
+            android:text="DATOS GENERALES"
             android:textSize="25dp" />
     </TableRow>
 
