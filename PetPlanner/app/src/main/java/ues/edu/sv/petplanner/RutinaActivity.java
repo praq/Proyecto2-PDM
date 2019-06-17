@@ -115,10 +115,10 @@ public class RutinaActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         //Capturar el usuario que se ha registrado
-        /*bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         usuarioRegistrado = bundle.getString("nombreusuario");
 
-        loginButton = findViewById(R.id.login_button);
+        /*loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
         usuario = findViewById(R.id.nombreUsuario);
 
@@ -136,14 +136,14 @@ public class RutinaActivity extends AppCompatActivity {
             public void onError(FacebookException error) {
 
             }
-        });
+        });*/
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iniciarCronometro();
             }
-        });*/
+        });
 
         btnParar.setOnClickListener(new View.OnClickListener() {
             @Override
