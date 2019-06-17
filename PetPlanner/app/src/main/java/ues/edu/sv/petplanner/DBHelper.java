@@ -118,8 +118,6 @@ public class DBHelper {
                // db.execSQL("insert into registro values(1,'Paola','Pelusa')");
                 db.execSQL("insert into rutina values('RUT1',1, '11/06/2019', '01:30')");
 
-                db.execSQL("insert into medicamento values('Acetaminofen',null,'Rabia','Es un medicamneto para...',3,'12/12/19')");
-                db.execSQL("insert into medicamento values('Dolofin',null,'Viruela','Es un medicamneto para...',2,'10/11/19')");
                 db.execSQL("insert into enfermedad values('Rabia','Es gravee')");
                 db.execSQL("insert into enfermedad values('Viruela','No es grave')");
 

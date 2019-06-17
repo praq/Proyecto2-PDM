@@ -180,15 +180,15 @@ public class RegistroMascotaActivity extends AppCompatActivity {
 
     //PARA ABRIR LA CAMARA DEL DISPOSITIVO
     private void openCamera() {
-        File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
-        file.mkdirs();
+        //File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
+        //file.mkdirs();
 
-        String path = Environment.getExternalStorageDirectory() + File.separator
-                + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
+        //String path = Environment.getExternalStorageDirectory() + File.separator
+        //        + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
 
-        File newfile = new File(path);
+        //File newfile = new File(path);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newfile));
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newfile));
         startActivityForResult(intent, PHOTO_CODE);
     }
 
@@ -207,10 +207,10 @@ public class RegistroMascotaActivity extends AppCompatActivity {
                 break;
 
             case SELECT_PICTURE:
-                if(requestCode== RESULT_OK){
+                //if(requestCode== RESULT_OK){
                     Uri path  = data.getData();
                     imageView.setImageURI(path);
-                }
+                //}
                 break;
         }
     }
