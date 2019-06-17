@@ -13,31 +13,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_marginTop="30dp">
 
-        <TextView
-            android:layout_width="168dp"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/fecha"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
-        <EditText
-            android:id="@+id/editFecha"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:enabled="false"
-            android:maxLength="30"
-            tools:layout_editor_absoluteX="132dp"
-            tools:layout_editor_absoluteY="10dp" />
-    </TableRow>
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="91dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Mascota: "
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <EditText
+                android:id="@+id/editNombreMascota"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="center"
+                android:maxLength="30"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/fecha"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <EditText
+                android:id="@+id/editFecha"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="center"
+                android:maxLength="30"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="10dp" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"

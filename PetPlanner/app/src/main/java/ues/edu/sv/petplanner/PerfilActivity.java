@@ -155,6 +155,7 @@ public class PerfilActivity extends AppCompatActivity {
         Intent ints = new Intent(this, RutinaActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("nombreusuario",usuario);
+        ints.putExtra("nombreperro", nombrePerrolbl.getText().toString());
         ints.putExtras(bundle);
         startActivity(ints);
     }

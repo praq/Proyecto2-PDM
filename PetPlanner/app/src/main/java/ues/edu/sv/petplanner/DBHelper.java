@@ -343,12 +343,17 @@ public class DBHelper {
         int cantidad = c.getCount();
         return cantidad;
     }
+
     //Consultar codigoregistro para rutina
-    public Registro obtenerCodRegistro(){
-        Cursor c = db.rawQuery("SELECT * FROM registro ORDER BY codigoregistro DESC LIMIT 1",null);
+    public Registro consultarCodRegistro(String nombrePerro){
+        Cursor c = db.rawQuery("SELECT * FROM registro " +
+                "inner join perro on registro.nombreperro=perro.nombreperro " +
+                "WHERE registro.nombreperro='"+nombrePerro+"'",null);
         if(c.moveToFirst()){
             Registro registro = new Registro();
-            registro.setCodRegistro(0);
+            registro.setCodRegistro(c.getInt(0));
+            registro.setNombreUsuario(c.getString(1));
+            registro.setNombrePerro(c.getString(2));
             return registro;
         }else
         return null;

@@ -60,6 +60,7 @@ public class RutinaActivity extends AppCompatActivity {
     Boolean correr = false;
     long detenerse;
     EditText editFecha;
+    EditText editNombreMascota;
     //para btnFB
     private EditText usuario;
     private LoginButton loginButton;
@@ -80,10 +81,12 @@ public class RutinaActivity extends AppCompatActivity {
     String contraseña = "eli12345";
     Usuario usua = null;
     String usuarioRegistrado;
+    String nombrePerro;
     Bundle bundle;
 
     private ImageView imagenGif;
     DBHelper helper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class RutinaActivity extends AppCompatActivity {
         btnReiniciar = findViewById(R.id.btnReiniciar);
         cronometro = findViewById(R.id.cronometro);
         editFecha = findViewById(R.id.editFecha);
+        editNombreMascota = findViewById(R.id.editNombreMascota);
+
 
         play=(Button) findViewById(R.id.play);
         stop=(Button) findViewById(R.id.stop);
@@ -117,6 +122,12 @@ public class RutinaActivity extends AppCompatActivity {
         //Capturar el usuario que se ha registrado
         bundle = getIntent().getExtras();
         usuarioRegistrado = bundle.getString("nombreusuario");
+
+        //para saber a qué perro le corresponde la rutina
+        bundle = getIntent().getExtras();
+        nombrePerro = bundle.getString("nombreperro");
+        editNombreMascota.setText(nombrePerro);
+
 
         /*loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
@@ -291,9 +302,14 @@ public class RutinaActivity extends AppCompatActivity {
         Rutina rutina = new Rutina();
         helper.abrir();
         rutina.setCodigoRutina("RUT"+(helper.cantidadRutina()+1)); //Hacer consulta
-        rutina.setCodigoRegistro(helper.obtenerCodRegistro().getCodRegistro());
+        Registro registro = new Registro();
+        nombrePerro = editNombreMascota.getText().toString();
+        registro = helper.consultarCodRegistro(nombrePerro);
+        int codRegistro = registro.getCodRegistro();
+        rutina.setCodigoRegistro(codRegistro);
         helper.cerrar();
         //rutina.setCodigoRegistro(1); //Hacer consulta
+
         rutina.setFechaRutina(editFecha.getText().toString());
         rutina.setDuracionRutina(cronometro.getText().toString());
         helper.abrir();
