@@ -8,6 +8,12 @@ public class Enfermedad {
 
     }
 
+    public Enfermedad(String nombreEnfermedad,String descripcionEnfermedad) {
+
+        this.nombreEnfermedad=nombreEnfermedad;
+        this.descripcionEnfermedad=descripcionEnfermedad;
+    }
+
     public String getNombreEnfermedad() {
         return nombreEnfermedad;
     }

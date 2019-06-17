@@ -3,6 +3,7 @@
     package="ues.edu.sv.petplanner">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -15,8 +16,8 @@
         android:roundIcon="@mipmap/ic_index_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AppIntroActivity">
-        </activity>
+        <activity android:name=".ImportacionActivity"></activity>
+        <activity android:name=".AppIntroActivity"></activity>
 
         <provider
             android:name="com.facebook.FacebookContentProvider"

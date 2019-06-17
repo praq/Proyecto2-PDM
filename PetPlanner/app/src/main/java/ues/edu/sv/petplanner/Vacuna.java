@@ -8,6 +8,12 @@ public class Vacuna {
     public Vacuna() {
     }
 
+    public Vacuna(String nombreVacuna, int codRegistro, String Fecha) {
+        this.nombreVacuna= nombreVacuna;
+        this.codRegistro=codRegistro;
+        this.fecha= Fecha;
+    }
+
 
     public String getNombreVacuna() {
         return nombreVacuna;

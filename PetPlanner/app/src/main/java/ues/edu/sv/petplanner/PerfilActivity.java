@@ -187,6 +187,11 @@ public class PerfilActivity extends AppCompatActivity {
         startActivity(ints);
     }
 
+    public  void importarDatos(View v) {
+        Intent ints = new Intent(this, ImportacionActivity.class);
+        startActivity(ints);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

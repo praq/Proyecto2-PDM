@@ -420,6 +420,22 @@ public class DBHelper {
         return regInsertados;
     }
 
+    public String InsertarEnfermedad(Enfermedad enfermedad) {
+        String regInsertados="Registrado";
+        long contador=0;
+        ContentValues c = new ContentValues();
+        c.put("nombreEnfermedad", enfermedad.getNombreEnfermedad());
+        c.put("descripcionEnfermedad", enfermedad.getDescripcionEnfermedad());
+        contador=db.insert("enfermedad", null, c);
+        if(contador==-1 || contador==0) {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado.";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
     public void consultarListaMedicamentos () {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Medicamento medicamento = null;
