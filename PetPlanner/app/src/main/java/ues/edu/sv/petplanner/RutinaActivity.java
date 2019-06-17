@@ -291,8 +291,9 @@ public class RutinaActivity extends AppCompatActivity {
         Rutina rutina = new Rutina();
         helper.abrir();
         rutina.setCodigoRutina("RUT"+(helper.cantidadRutina()+1)); //Hacer consulta
+        rutina.setCodigoRegistro(helper.obtenerCodRegistro().getCodRegistro());
         helper.cerrar();
-        rutina.setCodigoRegistro(1); //Hacer consulta
+        //rutina.setCodigoRegistro(1); //Hacer consulta
         rutina.setFechaRutina(editFecha.getText().toString());
         rutina.setDuracionRutina(cronometro.getText().toString());
         helper.abrir();

@@ -343,6 +343,16 @@ public class DBHelper {
         int cantidad = c.getCount();
         return cantidad;
     }
+    //Consultar codigoregistro para rutina
+    public Registro obtenerCodRegistro(){
+        Cursor c = db.rawQuery("SELECT * FROM registro ORDER BY codigoregistro DESC LIMIT 1",null);
+        if(c.moveToFirst()){
+            Registro registro = new Registro();
+            registro.setCodRegistro(0);
+            return registro;
+        }else
+        return null;
+    }
 
     //Manuel
     public String InsertarMedicamento(Medicamento medicamento) {
