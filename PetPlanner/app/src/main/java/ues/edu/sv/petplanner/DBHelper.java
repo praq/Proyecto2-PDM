@@ -26,11 +26,12 @@ public class DBHelper {
     private static final String DROP_TABLE8 ="DROP TABLE IF EXISTS enfermedad; ";
 
     public ArrayList<Medicamento> medicamentoLista;
+    public ArrayList<Rutina> rutinaLista;
     public ArrayList<Vacuna> vacunasLista;
     public ArrayList<Enfermedad> enfermedadLista;
     public ArrayList<Perro> perroLista;
     public ArrayList<Usuario> usuarioLista;
-    public ArrayList<String> listaMedicamento,listaVacunas,listaEnfermedad,listaPerro;
+    public ArrayList<String> listaMedicamento,listaVacunas,listaEnfermedad,listaPerro, listaRutina;
 
     private static final String[] camposRegistro = new String[]{"codigoregistro","nombreusuario","nombreperro"};
 
@@ -357,6 +358,29 @@ public class DBHelper {
             return registro;
         }else
         return null;
+    }
+
+    public void obtenerListaRutina() {
+        listaRutina = new ArrayList<String>();
+        for (int i = 0; i < rutinaLista.size(); i++){
+            listaRutina.add("COD RUTINA: "+rutinaLista.get(i).getCodigoRutina()+ "\nCOD REGISTRO : "+rutinaLista.get(i).getCodigoRegistro()+ "\nFECHA: "+rutinaLista.get(i).getFechaRutina()+ "\nDURACIÓN: "+rutinaLista.get(i).getDuracionRutina());
+        }
+    }
+
+    public void consultarListaRutinas () {
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Rutina rutina = null;
+        rutinaLista = new ArrayList<Rutina>();
+        Cursor cursor = db.rawQuery("SELECT * FROM rutina;", null);
+        while (cursor.moveToNext()) {
+            rutina = new Rutina();
+            rutina.setCodigoRutina(cursor.getString(0));
+            rutina.setCodigoRegistro(cursor.getInt(1));
+            rutina.setFechaRutina(cursor.getString(2));
+            rutina.setDuracionRutina(cursor.getString(3));
+            rutinaLista.add(rutina);
+        }
+        obtenerListaRutina();
     }
 
     //Manuel

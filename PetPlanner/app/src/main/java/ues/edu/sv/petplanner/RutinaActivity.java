@@ -9,11 +9,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -61,6 +65,8 @@ public class RutinaActivity extends AppCompatActivity {
     long detenerse;
     EditText editFecha;
     EditText editNombreMascota;
+    ListView listRutinas;
+    ScrollView scroll;
     //para btnFB
     private EditText usuario;
     private LoginButton loginButton;
@@ -99,6 +105,29 @@ public class RutinaActivity extends AppCompatActivity {
         cronometro = findViewById(R.id.cronometro);
         editFecha = findViewById(R.id.editFecha);
         editNombreMascota = findViewById(R.id.editNombreMascota);
+        listRutinas = findViewById(R.id.lstRutinas);
+
+        //CARGANDO DATOS A LA LISTA DE RUTINAS
+        helper.consultarListaRutinas();
+        ArrayAdapter<CharSequence> adapterLista=new ArrayAdapter(this,android.R.layout.simple_list_item_1, helper.listaRutina);
+        listRutinas.setAdapter(adapterLista);
+
+        //HABILITANDO SCROLL A LA LISTA
+        /*scroll.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                findViewById(R.id.lstRutinas).getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+        listRutinas.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });*/
 
 
         play=(Button) findViewById(R.id.play);
