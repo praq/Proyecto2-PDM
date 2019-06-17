@@ -148,6 +148,15 @@
                     app:bsb_show_section_text="true"
                     app:bsb_show_thumb_text="true"
                     app:bsb_track_color="#39796b" />
+                <TextView
+                    android:id="@+id/edadPerro"
+                    android:layout_width="113dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="   Edad:"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="176dp"
+                    tools:layout_editor_absoluteY="235dp" />
 
 
             </TableRow>
