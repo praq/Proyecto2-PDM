@@ -106,23 +106,9 @@ public class RutinaActivity extends AppCompatActivity {
         editFecha = findViewById(R.id.editFecha);
         editNombreMascota = findViewById(R.id.editNombreMascota);
         listRutinas = findViewById(R.id.lstRutinas);
+        scroll=(ScrollView)findViewById(R.id.scroll);
 
-        //HABILITANDO SCROLL A LA LISTA
-        /*scroll.setOnTouchListener(new View.OnTouchListener() {
 
-            public boolean onTouch(View v, MotionEvent event) {
-                findViewById(R.id.lstRutinas).getParent().requestDisallowInterceptTouchEvent(false);
-                return false;
-            }
-        });
-
-        listRutinas.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });*/
 
 
         play=(Button) findViewById(R.id.play);
@@ -159,6 +145,23 @@ public class RutinaActivity extends AppCompatActivity {
         helper.consultarListaRutinas(codRegistro);
         ArrayAdapter<CharSequence> adapterLista=new ArrayAdapter(this,android.R.layout.simple_list_item_1, helper.listaRutina);
         listRutinas.setAdapter(adapterLista);
+
+        //HABILITANDO SCROLL A LA LISTA
+        scroll.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                findViewById(R.id.lstRutinas).getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+        listRutinas.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         /*loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
