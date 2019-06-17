@@ -201,10 +201,10 @@ public class PerfilActivity extends AppCompatActivity {
             break;
 
             case SELECT_PICTURE:
-                if(requestCode== RESULT_OK){
+                //if(requestCode== RESULT_OK){
                     Uri path  = data.getData();
                     imageView.setImageURI(path);
-                }
+                //}
             break;
         }
     }
