@@ -345,17 +345,16 @@ public class DBHelper {
 
     //Consultar codigoregistro para rutina
     public Registro consultarCodRegistro(String nombrePerro){
-        Cursor c = db.rawQuery("SELECT * FROM registro " +
-                "inner join perro on registro.nombreperro=perro.nombreperro " +
-                "WHERE registro.nombreperro='"+nombrePerro+"'",null);
-        if(c.moveToFirst()){
-            Registro registro = new Registro();
+        SQLiteDatabase db = DBHelper.getReadableDatabase();
+        Registro registro = null;
+        Cursor c = db.rawQuery("SELECT * FROM registro inner join perro on registro.nombreperro=perro.nombreperro WHERE registro.nombreperro='"+nombrePerro+"';",null);
+        if(c.moveToNext()){
+            registro = new Registro();
             registro.setCodRegistro(c.getInt(0));
             registro.setNombreUsuario(c.getString(1));
             registro.setNombrePerro(c.getString(2));
-            return registro;
-        }else
-        return null;
+        }
+        return registro;
     }
 
     public void obtenerListaRutina() {
@@ -365,11 +364,11 @@ public class DBHelper {
         }
     }
 
-    public void consultarListaRutinas () {
+    public void consultarListaRutinas (int codRegistro) {
         SQLiteDatabase db = DBHelper.getReadableDatabase();
         Rutina rutina = null;
         rutinaLista = new ArrayList<Rutina>();
-        Cursor cursor = db.rawQuery("SELECT * FROM rutina;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM rutina inner join registro on rutina.codigoregistro=registro.codigoregistro WHERE rutina.codigoregistro="+codRegistro+";", null);
         while (cursor.moveToNext()) {
             rutina = new Rutina();
             rutina.setCodigoRutina(cursor.getString(0));

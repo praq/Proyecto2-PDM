@@ -153,9 +153,11 @@ public class PerfilActivity extends AppCompatActivity {
 
     public  void rutina(View v) {
         Intent ints = new Intent(this, RutinaActivity.class);
+        String mascota=spinnerMascota.getSelectedItem().toString();
+        Perro perro = helper.consultarMascota(mascota);
         Bundle bundle = new Bundle();
         bundle.putString("nombreusuario",usuario);
-        ints.putExtra("nombreperro", nombrePerrolbl.getText().toString());
+        ints.putExtra("nombreperro", perro.getNombrePerro());
         ints.putExtras(bundle);
         startActivity(ints);
     }

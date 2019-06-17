@@ -107,11 +107,6 @@ public class RutinaActivity extends AppCompatActivity {
         editNombreMascota = findViewById(R.id.editNombreMascota);
         listRutinas = findViewById(R.id.lstRutinas);
 
-        //CARGANDO DATOS A LA LISTA DE RUTINAS
-        helper.consultarListaRutinas();
-        ArrayAdapter<CharSequence> adapterLista=new ArrayAdapter(this,android.R.layout.simple_list_item_1, helper.listaRutina);
-        listRutinas.setAdapter(adapterLista);
-
         //HABILITANDO SCROLL A LA LISTA
         /*scroll.setOnTouchListener(new View.OnTouchListener() {
 
@@ -157,6 +152,13 @@ public class RutinaActivity extends AppCompatActivity {
         nombrePerro = bundle.getString("nombreperro");
         editNombreMascota.setText(nombrePerro);
 
+        Registro registro = helper.consultarCodRegistro(nombrePerro);
+        int codRegistro = registro.getCodRegistro();
+        helper.cerrar();
+        //CARGANDO DATOS A LA LISTA DE RUTINAS
+        helper.consultarListaRutinas(codRegistro);
+        ArrayAdapter<CharSequence> adapterLista=new ArrayAdapter(this,android.R.layout.simple_list_item_1, helper.listaRutina);
+        listRutinas.setAdapter(adapterLista);
 
         /*loginButton = findViewById(R.id.login_button);
         circleImageView = findViewById(R.id.profile_image);
