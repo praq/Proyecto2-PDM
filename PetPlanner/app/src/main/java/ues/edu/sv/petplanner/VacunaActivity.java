@@ -139,7 +139,7 @@ public class VacunaActivity extends AppCompatActivity {
 
 
             helper.abrir();
-            registro = helper.consultarRegistro(usuario, perroo);
+            registro = helper.consultarRegistro(perroo);
             helper.cerrar();
 
 

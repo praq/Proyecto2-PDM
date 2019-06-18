@@ -153,6 +153,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:enabled="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"/>
     </TableRow>
     <TableRow
@@ -171,7 +175,11 @@
             android:id="@+id/raza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:enabled="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
@@ -190,7 +198,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:enabled="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
@@ -209,7 +221,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:enabled="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
@@ -228,7 +244,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:enabled="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"/>
     </TableRow>
 
 

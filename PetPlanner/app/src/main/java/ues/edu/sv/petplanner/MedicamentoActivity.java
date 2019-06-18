@@ -170,7 +170,7 @@ public class MedicamentoActivity extends AppCompatActivity {
             String fechas = fecha.getText().toString();
 
             helper.abrir();
-            registro = helper.consultarRegistro(usuario, perroo);
+            registro = helper.consultarRegistro(perroo);
             helper.cerrar();
 
             Medicamento medicamento = new Medicamento();

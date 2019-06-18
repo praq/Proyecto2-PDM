@@ -306,9 +306,9 @@ public class DBHelper {
         return regInsertados;
     }
 
-    public Registro consultarRegistro(String nombreUsuario,String nombrePerro){
-        String [] id = {nombreUsuario,nombrePerro};
-        Cursor cursor= db.query("registro",camposRegistro,"nombreusuario = ? AND nombreperro = ?",id,null,null,null);
+    public Registro consultarRegistro(String nombrePerro){
+        String [] id = {nombrePerro};
+        Cursor cursor= db.query("registro",camposRegistro,"nombreperro = ?",id,null,null,null);
         if(cursor.moveToFirst()){
             Registro registro = new Registro();
             registro.setCodRegistro(cursor.getInt(0));
